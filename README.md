@@ -3,7 +3,7 @@ This is a virtual book club app.
 
 ## Upcoming Features
 - [ ] CRUD (Create, Read, Update, Delete) functionalities
-- [ ] SQL Database creation script
+- [x] SQL Database creation script
 - [ ] Account System
    - Login
    - Registration
@@ -27,7 +27,3 @@ This is a virtual book club app.
 ## Technologies/Frameworks used
 - .NET 9 SDK
 - SQL Database
-
-## Collaborators
-- @CW-ISM 
-- @Kenny-42 
