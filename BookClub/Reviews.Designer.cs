@@ -140,6 +140,7 @@
             // 
             // pnlReviewBoard
             // 
+            pnlReviewBoard.AutoScroll = true;
             pnlReviewBoard.Location = new Point(171, 96);
             pnlReviewBoard.Name = "pnlReviewBoard";
             pnlReviewBoard.Size = new Size(588, 184);

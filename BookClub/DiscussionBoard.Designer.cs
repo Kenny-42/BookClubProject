@@ -110,6 +110,7 @@
             // 
             // pnlDiscussionBoard
             // 
+            pnlDiscussionBoard.AutoScroll = true;
             pnlDiscussionBoard.Location = new Point(174, 95);
             pnlDiscussionBoard.Name = "pnlDiscussionBoard";
             pnlDiscussionBoard.Size = new Size(588, 184);
