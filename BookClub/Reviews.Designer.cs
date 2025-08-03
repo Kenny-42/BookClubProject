@@ -37,7 +37,7 @@
             lblDescription = new Label();
             lblBookTitle = new Label();
             lblReviews = new Label();
-            panel1 = new Panel();
+            pnlReviewBoard = new Panel();
             txtReview = new TextBox();
             btnSubmit = new Button();
             pcbStar3 = new PictureBox();
@@ -138,12 +138,12 @@
             lblReviews.TabIndex = 10;
             lblReviews.Text = "Reviews";
             // 
-            // panel1
+            // pnlReviewBoard
             // 
-            panel1.Location = new Point(171, 96);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(588, 184);
-            panel1.TabIndex = 11;
+            pnlReviewBoard.Location = new Point(171, 96);
+            pnlReviewBoard.Name = "pnlReviewBoard";
+            pnlReviewBoard.Size = new Size(588, 184);
+            pnlReviewBoard.TabIndex = 11;
             // 
             // txtReview
             // 
@@ -215,7 +215,7 @@
             Controls.Add(pcbStar3);
             Controls.Add(btnSubmit);
             Controls.Add(txtReview);
-            Controls.Add(panel1);
+            Controls.Add(pnlReviewBoard);
             Controls.Add(lblReviews);
             Controls.Add(lblBookTitle);
             Controls.Add(lblDescription);
@@ -248,7 +248,7 @@
         private Label lblDescription;
         private Label lblBookTitle;
         private Label lblReviews;
-        private Panel panel1;
+        private Panel pnlReviewBoard;
         private TextBox txtReview;
         private Button btnSubmit;
         private PictureBox pcbStar3;
