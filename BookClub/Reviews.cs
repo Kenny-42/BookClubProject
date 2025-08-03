@@ -12,9 +12,43 @@ namespace BookClub
 {
     public partial class Reviews : Form
     {
+        private PictureBox[] stars;
+        private int currentRating = 0;
         public Reviews()
         {
             InitializeComponent();
+
+            stars = new PictureBox[] { pcbStar1, pcbStar2, pcbStar3, pcbStar4, pcbStar5 };
+            for (int i = 0; i < stars.Length; i++)
+            {
+                stars[i].Tag = i + 1;
+                stars[i].Image = Properties.Resources.star_empty;
+                stars[i].Cursor = Cursors.Hand;
+                stars[i].Click += Star_Click;
+            }
+        }
+
+        private void Star_Click(object sender, EventArgs e)
+        {
+            PictureBox clickedStar = sender as PictureBox;
+            int rating = (int)clickedStar.Tag;
+            currentRating = rating;
+            UpdateStarImages(rating);
+        }
+
+        private void UpdateStarImages(int rating)
+        {
+            for (int i = 0; i < stars.Length; i++)
+            {
+                if (i < rating)
+                {
+                    stars[i].Image = Properties.Resources.star_filled;
+                }
+                else
+                {
+                    stars[i].Image = Properties.Resources.star_empty;
+                }
+            }
         }
     }
 }
