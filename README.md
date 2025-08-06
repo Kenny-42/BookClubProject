@@ -24,7 +24,7 @@ This project is currently in **active development**.
 ### Clone or download the repository:
 [![Download zip](https://custom-icon-badges.demolab.com/badge/-Download-blue?style=for-the-badge&logo=download&logoColor=white "Download zip")](https://github.com/Kenny-42/BookClubProject/archive/refs/heads/master.zip)
 ```
-git clone https://github.com/Kenny-42/BookClub.git
+git clone https://github.com/Kenny-42/BookClubProject
 cd BookClub
 ```
 
@@ -32,11 +32,17 @@ cd BookClub
  - Using Visual Studio:
     - Open [`BookClub.sln`](../master/BookClub.sln) and press F5 to build
  - Using .NET Cli:
-   ```
+    - Open Command Prompt, Powershell, or Bash
+    - Navigate to project folder containing [`BookClub.csproj`](../master/BookClub/BookClub.csproj)
+    ```
+      cd BookClub
+    ```
+    - Restore, Build, and Run
+    ```
       dotnet restore
       dotnet build
       dotnet run
-   ```
+    ```
 ---
 
 ## Upcoming Features
