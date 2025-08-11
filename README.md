@@ -25,7 +25,7 @@ This project is currently in **active development**.
 [![Download zip](https://custom-icon-badges.demolab.com/badge/-Download-blue?style=for-the-badge&logo=download&logoColor=white "Download zip")](https://github.com/Kenny-42/BookClubProject/archive/refs/heads/master.zip)
 ```
 git clone https://github.com/Kenny-42/BookClubProject
-cd BookClub
+cd BookClubProject
 ```
 
 ### Build and run:
