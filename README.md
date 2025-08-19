@@ -7,8 +7,8 @@ This is a virtual book club app.
 This project is currently in **active development**.
 
  ### Sections
-  - [Upcoming Features](#upcoming-features)
   - [How to Get Started](#how-to-get-started)
+  - [Upcoming Features](#upcoming-features)
   - [Technologies Used](#technologiesframeworks-used)
 
 ---
