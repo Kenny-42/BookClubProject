@@ -17,9 +17,12 @@ namespace BookClub
         public DiscussionBoard(int bookId)
         {
             InitializeComponent();
-            this.FormClosed += (s, args) => Application.Exit();
+
             _bookId = bookId;
-            // Use _bookId to load book-specific discussions or info here
+
+            this.FormClosed += (s, args) => Application.Exit();
+
+            LoadBookInfo(_bookId);
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
@@ -41,6 +44,36 @@ namespace BookClub
             Reviews reviewsForm = new Reviews(_bookId);
             reviewsForm.Show();
             this.Hide();
+        }
+
+        private void LoadBookInfo(int bookId)
+        {
+            string connectionString = "Server=localhost;Database=BookClub;Trusted_Connection=True;TrustServerCertificate=True;";
+            string query = "SELECT Title, Author, ISBN, BookDescription FROM Books WHERE BookId = @BookId";
+
+            using (var conn = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@BookId", bookId);
+                conn.Open();
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        lblBookTitle.Text = reader["Title"].ToString();
+                        lblAuthor.Text = "Author: " + reader["Author"].ToString();
+                        lblISBN.Text = "ISBN: " + reader["ISBN"].ToString();
+                        lblDescription.Text = reader["BookDescription"].ToString();
+                    }
+                    else
+                    {
+                        lblBookTitle.Text = "Book Title";
+                        lblAuthor.Text = "Author";
+                        lblISBN.Text = "ISBN";
+                        lblDescription.Text = "Description";
+                    }
+                }
+            }
         }
     }
 }

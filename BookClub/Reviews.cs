@@ -19,9 +19,11 @@ namespace BookClub
         public Reviews(int bookId)
         {
             InitializeComponent();
+
             _bookId = bookId;
 
             this.FormClosed += (s, args) => Application.Exit();
+
             LoadBookInfo(_bookId);
 
             stars = new PictureBox[] { pcbStar1, pcbStar2, pcbStar3, pcbStar4, pcbStar5 };
