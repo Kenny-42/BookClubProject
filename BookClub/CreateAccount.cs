@@ -15,6 +15,21 @@ namespace BookClub
         public CreateAccount()
         {
             InitializeComponent();
+            this.FormClosed += (s, args) => Application.Exit();
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            Login loginForm = new Login();
+            loginForm.Show();
+            this.Hide();
+        }
+
+        private void btnCreateAccount_Click(object sender, EventArgs e)
+        {
+            BookList bookListForm = new BookList();
+            bookListForm.Show();
+            this.Hide();
         }
     }
 }
