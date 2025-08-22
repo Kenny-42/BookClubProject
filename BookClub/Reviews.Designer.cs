@@ -172,6 +172,7 @@
             pcbStar3.Location = new Point(449, 369);
             pcbStar3.Name = "pcbStar3";
             pcbStar3.Size = new Size(25, 25);
+            pcbStar3.SizeMode = PictureBoxSizeMode.StretchImage;
             pcbStar3.TabIndex = 14;
             pcbStar3.TabStop = false;
             // 
@@ -180,6 +181,7 @@
             pcbStar2.Location = new Point(418, 369);
             pcbStar2.Name = "pcbStar2";
             pcbStar2.Size = new Size(25, 25);
+            pcbStar2.SizeMode = PictureBoxSizeMode.StretchImage;
             pcbStar2.TabIndex = 15;
             pcbStar2.TabStop = false;
             // 
@@ -188,6 +190,7 @@
             pcbStar4.Location = new Point(480, 369);
             pcbStar4.Name = "pcbStar4";
             pcbStar4.Size = new Size(25, 25);
+            pcbStar4.SizeMode = PictureBoxSizeMode.StretchImage;
             pcbStar4.TabIndex = 16;
             pcbStar4.TabStop = false;
             // 
@@ -196,6 +199,7 @@
             pcbStar1.Location = new Point(385, 369);
             pcbStar1.Name = "pcbStar1";
             pcbStar1.Size = new Size(25, 25);
+            pcbStar1.SizeMode = PictureBoxSizeMode.StretchImage;
             pcbStar1.TabIndex = 17;
             pcbStar1.TabStop = false;
             // 
@@ -204,6 +208,7 @@
             pcbStar5.Location = new Point(511, 369);
             pcbStar5.Name = "pcbStar5";
             pcbStar5.Size = new Size(25, 25);
+            pcbStar5.SizeMode = PictureBoxSizeMode.StretchImage;
             pcbStar5.TabIndex = 18;
             pcbStar5.TabStop = false;
             // 

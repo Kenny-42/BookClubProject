@@ -14,10 +14,15 @@ namespace BookClub
     {
         private PictureBox[] stars;
         private int currentRating = 0;
-        public Reviews()
+        private int _bookId;
+
+        public Reviews(int bookId)
         {
             InitializeComponent();
+            _bookId = bookId;
+
             this.FormClosed += (s, args) => Application.Exit();
+            LoadBookInfo(_bookId);
 
             stars = new PictureBox[] { pcbStar1, pcbStar2, pcbStar3, pcbStar4, pcbStar5 };
             for (int i = 0; i < stars.Length; i++)
@@ -68,9 +73,39 @@ namespace BookClub
 
         private void btnOpenDiscussionBoard_Click(object sender, EventArgs e)
         {
-            DiscussionBoard discussionBoardForm = new DiscussionBoard();
+            DiscussionBoard discussionBoardForm = new DiscussionBoard(_bookId);
             discussionBoardForm.Show();
             this.Hide();
+        }
+
+        private void LoadBookInfo(int bookId)
+        {
+            string connectionString = "Server=localhost;Database=BookClub;Trusted_Connection=True;TrustServerCertificate=True;";
+            string query = "SELECT Title, Author, ISBN, BookDescription FROM Books WHERE BookId = @BookId";
+
+            using (var conn = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@BookId", bookId);
+                conn.Open();
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        lblBookTitle.Text = reader["Title"].ToString();
+                        lblAuthor.Text = "Author: " + reader["Author"].ToString();
+                        lblISBN.Text = "ISBN: " + reader["ISBN"].ToString();
+                        lblDescription.Text = reader["BookDescription"].ToString();
+                    }
+                    else
+                    {
+                        lblBookTitle.Text = "Book Title";
+                        lblAuthor.Text = "Author";
+                        lblISBN.Text = "ISBN";
+                        lblDescription.Text = "Description";
+                    }
+                }
+            }
         }
     }
 }
