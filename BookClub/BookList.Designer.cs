@@ -31,7 +31,7 @@
             btnLogout = new Button();
             btnAddBook = new Button();
             lblBookList = new Label();
-            panel1 = new Panel();
+            pnlBookList = new Panel();
             SuspendLayout();
             // 
             // btnLogout
@@ -64,19 +64,20 @@
             lblBookList.TabIndex = 2;
             lblBookList.Text = "Book List";
             // 
-            // panel1
+            // pnlBookList
             // 
-            panel1.Location = new Point(129, 121);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(537, 247);
-            panel1.TabIndex = 3;
+            pnlBookList.AutoScroll = true;
+            pnlBookList.Location = new Point(129, 121);
+            pnlBookList.Name = "pnlBookList";
+            pnlBookList.Size = new Size(537, 247);
+            pnlBookList.TabIndex = 3;
             // 
             // BookList
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(panel1);
+            Controls.Add(pnlBookList);
             Controls.Add(lblBookList);
             Controls.Add(btnAddBook);
             Controls.Add(btnLogout);
@@ -91,6 +92,6 @@
         private Button btnLogout;
         private Button btnAddBook;
         private Label lblBookList;
-        private Panel panel1;
+        private Panel pnlBookList;
     }
 }
