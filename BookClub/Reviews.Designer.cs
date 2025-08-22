@@ -61,6 +61,7 @@
             btnLogout.TabIndex = 2;
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = true;
+            btnLogout.Click += btnLogout_Click;
             // 
             // btnBookList
             // 
@@ -70,6 +71,7 @@
             btnBookList.TabIndex = 3;
             btnBookList.Text = "Book List";
             btnBookList.UseVisualStyleBackColor = true;
+            btnBookList.Click += btnBookList_Click;
             // 
             // btnOpenDiscussionBoard
             // 
@@ -79,6 +81,7 @@
             btnOpenDiscussionBoard.TabIndex = 4;
             btnOpenDiscussionBoard.Text = "Open Discussion Board";
             btnOpenDiscussionBoard.UseVisualStyleBackColor = true;
+            btnOpenDiscussionBoard.Click += btnOpenDiscussionBoard_Click;
             // 
             // pcbBookThumbnail
             // 
