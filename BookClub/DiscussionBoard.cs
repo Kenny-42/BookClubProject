@@ -12,10 +12,14 @@ namespace BookClub
 {
     public partial class DiscussionBoard : Form
     {
-        public DiscussionBoard()
+        private int _bookId;
+
+        public DiscussionBoard(int bookId)
         {
             InitializeComponent();
             this.FormClosed += (s, args) => Application.Exit();
+            _bookId = bookId;
+            // Use _bookId to load book-specific discussions or info here
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
@@ -34,7 +38,7 @@ namespace BookClub
 
         private void btnReviews_Click(object sender, EventArgs e)
         {
-            Reviews reviewsForm = new Reviews();
+            Reviews reviewsForm = new Reviews(_bookId);
             reviewsForm.Show();
             this.Hide();
         }

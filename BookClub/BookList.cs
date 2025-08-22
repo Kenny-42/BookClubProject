@@ -73,6 +73,15 @@ namespace BookClub
                 btn.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
                 btn.Tag = book.BookId;
                 btn.UseCompatibleTextRendering = true;
+
+                btn.Click += (s, e) =>
+                {
+                    int bookId = (int)((Button)s).Tag;
+                    Reviews reviewsForm = new Reviews(bookId);
+                    reviewsForm.Show();
+                    this.Hide();
+                };
+
                 pnlBookList.Controls.Add(btn);
             }
         }

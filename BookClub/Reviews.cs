@@ -14,9 +14,13 @@ namespace BookClub
     {
         private PictureBox[] stars;
         private int currentRating = 0;
-        public Reviews()
+        private int _bookId;
+
+        public Reviews(int bookId)
         {
             InitializeComponent();
+            _bookId = bookId;
+
             this.FormClosed += (s, args) => Application.Exit();
 
             stars = new PictureBox[] { pcbStar1, pcbStar2, pcbStar3, pcbStar4, pcbStar5 };
@@ -68,7 +72,7 @@ namespace BookClub
 
         private void btnOpenDiscussionBoard_Click(object sender, EventArgs e)
         {
-            DiscussionBoard discussionBoardForm = new DiscussionBoard();
+            DiscussionBoard discussionBoardForm = new DiscussionBoard(_bookId);
             discussionBoardForm.Show();
             this.Hide();
         }
