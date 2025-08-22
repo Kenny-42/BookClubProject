@@ -70,6 +70,7 @@
             btnLogin.TabIndex = 3;
             btnLogin.Text = "Login";
             btnLogin.UseVisualStyleBackColor = true;
+            btnLogin.Click += btnLogin_Click;
             // 
             // btnCreateAccount
             // 
@@ -79,6 +80,7 @@
             btnCreateAccount.TabIndex = 4;
             btnCreateAccount.Text = "Create Account";
             btnCreateAccount.UseVisualStyleBackColor = true;
+            btnCreateAccount.Click += new System.EventHandler(this.btnCreateAccount_Click);
             // 
             // Login
             // 

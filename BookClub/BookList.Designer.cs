@@ -42,6 +42,7 @@
             btnLogout.TabIndex = 0;
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = true;
+            btnLogout.Click += btnLogout_Click;
             // 
             // btnAddBook
             // 
@@ -51,6 +52,7 @@
             btnAddBook.TabIndex = 1;
             btnAddBook.Text = "Add Book";
             btnAddBook.UseVisualStyleBackColor = true;
+            btnAddBook.Click += btnAddBook_Click;
             // 
             // lblBookList
             // 

@@ -17,6 +17,7 @@ namespace BookClub
         public Reviews()
         {
             InitializeComponent();
+            this.FormClosed += (s, args) => Application.Exit();
 
             stars = new PictureBox[] { pcbStar1, pcbStar2, pcbStar3, pcbStar4, pcbStar5 };
             for (int i = 0; i < stars.Length; i++)
@@ -49,6 +50,27 @@ namespace BookClub
                     stars[i].Image = Properties.Resources.star_empty;
                 }
             }
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            Login loginForm = new Login();
+            loginForm.Show();
+            this.Hide();
+        }
+
+        private void btnBookList_Click(object sender, EventArgs e)
+        {
+            BookList bookListForm = new BookList();
+            bookListForm.Show();
+            this.Hide();
+        }
+
+        private void btnOpenDiscussionBoard_Click(object sender, EventArgs e)
+        {
+            DiscussionBoard discussionBoardForm = new DiscussionBoard();
+            discussionBoardForm.Show();
+            this.Hide();
         }
     }
 }

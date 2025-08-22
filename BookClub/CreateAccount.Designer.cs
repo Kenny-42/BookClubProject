@@ -1,4 +1,5 @@
-﻿namespace BookClub
+﻿
+namespace BookClub
 {
     partial class CreateAccount
     {
@@ -45,6 +46,7 @@
             btnLogin.TabIndex = 1;
             btnLogin.Text = "Login";
             btnLogin.UseVisualStyleBackColor = true;
+            btnLogin.Click += btnLogin_Click;
             // 
             // lblCreateAccount
             // 
@@ -88,6 +90,7 @@
             btnCreateAccount.TabIndex = 6;
             btnCreateAccount.Text = "Create Account";
             btnCreateAccount.UseVisualStyleBackColor = true;
+            btnCreateAccount.Click += btnCreateAccount_Click;
             // 
             // txtPassword
             // 
