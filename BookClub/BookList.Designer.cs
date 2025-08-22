@@ -66,6 +66,7 @@
             // 
             // pnlBookList
             // 
+            pnlBookList.AutoScroll = true;
             pnlBookList.Location = new Point(129, 121);
             pnlBookList.Name = "pnlBookList";
             pnlBookList.Size = new Size(537, 247);

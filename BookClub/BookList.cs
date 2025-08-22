@@ -65,13 +65,14 @@ namespace BookClub
             {
                 var book = books[i];
                 Button btn = new Button();
-                btn.Text = $"{book.Title} by {book.Author}";
+                btn.Text = $"{book.Title}\nby {book.Author}";
                 btn.Width = pnlBookList.ClientSize.Width - 2 * spacing;
                 btn.Height = buttonHeight;
                 btn.Left = spacing;
                 btn.Top = i * (buttonHeight + spacing);
                 btn.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
                 btn.Tag = book.BookId;
+                btn.UseCompatibleTextRendering = true;
                 pnlBookList.Controls.Add(btn);
             }
         }
