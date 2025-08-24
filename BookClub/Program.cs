@@ -1,4 +1,5 @@
 using BookClub.Data;
+using BookClub.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,7 +19,14 @@ internal static class Program
         // To customize application configuration such as set high DPI settings or default font,
         // see https://aka.ms/applicationconfiguration.
         ApplicationConfiguration.Initialize();
-        Application.Run(new Login());
+        Application.Run(host.Services.GetRequiredService<Login>());
+
+        // Ensure database is created and migrations are applied at startup
+        using (var scope = host.Services.CreateScope())
+        {
+            var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            dbContext.Database.Migrate();
+        }
     }
 
     // Creates and configures the IHostBuilder for the application,
