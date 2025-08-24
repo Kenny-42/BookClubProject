@@ -36,6 +36,55 @@ public class AppDbContext : DbContext
                 .ToTable(tb => tb.HasCheckConstraint("CK_Birthdate_AgeRange",
                 "Birthdate <= DATEADD(YEAR, -13, GETDATE()) AND Birthdate >= DATEADD(YEAR, -100, GETDATE())"));
 
+            modelBuilder.Entity<Account>()
+                .HasData(
+                new Account
+                {
+                    AccountId = 1,
+                    Username = "emmaw90",
+                    Email = "emma.watkins@mail.com",
+                    Birthdate = new DateTime(1990, 7, 12),
+                    CreatedAt = new DateTime(2025, 1, 1), // must be fixed, not DateTime.UtcNow
+                    Password = "54321" // placeholder
+                },
+                new Account
+                {
+                    AccountId = 2,
+                    Username = "liamng",
+                    Email = "liam.nguyen@mail.com",
+                    Birthdate = new DateTime(1995, 6, 15),
+                    CreatedAt = new DateTime(2025, 1, 1),
+                    Password = "12345"
+                },
+                new Account
+                {
+                    AccountId = 3,
+                    Username = "sophial",
+                    Email = "sophia.lopez@mail.com",
+                    Birthdate = new DateTime(1995, 6, 15),
+                    CreatedAt = new DateTime(2025, 1, 1),
+                    Password = "12345"
+                },
+                new Account
+                {
+                    AccountId = 4,
+                    Username = "noahb",
+                    Email = "noah.bennett@mail.com",
+                    Birthdate = new DateTime(1995, 6, 15),
+                    CreatedAt = new DateTime(2025, 1, 1),
+                    Password = "12345"
+                },
+                new Account
+                {
+                    AccountId = 5,
+                    Username = "avap",
+                    Email = "ava.patel@mail.com",
+                    Birthdate = new DateTime(1997, 5, 30),
+                    CreatedAt = new DateTime(2025, 1, 1),
+                    Password = "12345"
+                }
+                );
+
             //entity.HasKey(e => e.AccountId);
             //entity.Property(e => e.CreatedAt)
             //      .HasDefaultValueSql("GETDATE()")
