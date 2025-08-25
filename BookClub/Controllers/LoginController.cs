@@ -10,7 +10,7 @@ public class LoginController : IController
     private readonly AccountsService _accountsService;
 
     public event Action<Type, object?>? NavigationRequested;
-
+    
     public LoginController(AccountsService accountService)
     {
         _accountsService = accountService;
