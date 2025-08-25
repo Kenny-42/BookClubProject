@@ -18,7 +18,7 @@ internal static class Program
         // To customize application configuration such as set high DPI settings or default font,
         // see https://aka.ms/applicationconfiguration.
         ApplicationConfiguration.Initialize();
-        Application.Run(host.Services.GetRequiredService<Login>());
+        Application.Run(host.Services.GetRequiredService<MainForm>());
     }
 
     // Creates and configures the IHostBuilder for the application,
@@ -36,6 +36,6 @@ internal static class Program
                 services.AddDbContext<AppDbContext>(options =>
                     options.UseSqlServer(connectionString));
 
-                services.AddScoped<Login>(); // Register Form1
+                services.AddScoped<MainForm>(); // Register MainForm
             });
 }
