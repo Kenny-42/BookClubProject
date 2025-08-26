@@ -3,28 +3,27 @@
 public class Result
 {
     public bool Success { get; }
-    public string? ErrorMessage { get; }
-    public bool IsFailure => !Success;
+    public string? Message { get; }
+    public bool Failed => !Success;
 
-    protected Result(bool success, string? errorMessage)
+    protected Result(bool success, string? message)
     {
-        if (success && errorMessage != null)
-            throw new InvalidOperationException();
-        if (!success && errorMessage == null)
+        if (!success && message == null)
             throw new InvalidOperationException();
         Success = success;
-        ErrorMessage = errorMessage;
+        Message = message;
     }
 
     public static Result Ok() => new(true, null);
+    public static Result Ok(string message) => new(true, message);
     public static Result Fail(string message) => new(false, message);
 }
 
 public class Result<T> : Result
 {
     public T? Value { get; }
-    protected Result(bool success, T? value, string? errorMessage)
-        : base(success, errorMessage)
+    protected Result(bool success, T? value, string? message)
+        : base(success, message)
     {
         Value = value;
     }
