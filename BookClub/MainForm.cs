@@ -27,10 +27,9 @@ public partial class MainForm : Form
         _navigator = new ViewNavigator(_viewContainer, _serviceProvider);
 
         // Register views
-        _navigator.RegisterView<ViewRed, RedController>(ViewRed.ViewKey);
-        _navigator.RegisterView<ViewBlue, BlueController>(ViewBlue.ViewKey);
         _navigator.RegisterView<LoginView, LoginController>(LoginView.ViewKey);
         _navigator.RegisterView<RegisterView, RegisterController>(RegisterView.ViewKey);
+        _navigator.RegisterView<ForgotPasswordView, ForgotPasswordController>(ForgotPasswordView.ViewKey);
 
 
         // Start app
