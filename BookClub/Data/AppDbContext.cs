@@ -14,21 +14,25 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Account>()
+            .Property(a => a.Id)
+            .ValueGeneratedOnAdd();
+
+        modelBuilder.Entity<Account>()
             .HasData(
-                new Account { FirstName = "Alice", LastName = "Smith", Username = "alice_smith" },
-                new Account { FirstName = "Bob", LastName = "Jones", Username = "bob_jones" },
-                new Account { FirstName = "Charlie", LastName = "Brown", Username = "charlie_brown" },
-                new Account { FirstName = "Diana", LastName = "White", Username = "diana_white" },
-                new Account { FirstName = "Ella", LastName = "Green", Username = "ella_green" }
+                new Account { Id = 1, FirstName = "Alice", LastName = "Smith", Username = "alice_smith", Password = "123456" },
+                new Account { Id = 2, FirstName = "Bob", LastName = "Jones", Username = "bob_jones", Password = "123456" },
+                new Account { Id = 3, FirstName = "Charlie", LastName = "Brown", Username = "charlie_brown", Password = "123456" },
+                new Account { Id = 4, FirstName = "Diana", LastName = "White", Username = "diana_white", Password = "123456" },
+                new Account { Id = 5, FirstName = "Ella", LastName = "Green", Username = "ella_green", Password = "123456" }
             );
 
         modelBuilder.Entity<Book>()
             .HasData(
-                new Book { Title = "The Silent Library", Author = "Ava Miles" },
-                new Book { Title = "Gardens of Glass", Author = "Liam Frost" },
-                new Book { Title = "Moonlight Archive", Author = "Elena Brook" },
-                new Book { Title = "Echoes of Dust", Author = "Mason Quinn" },
-                new Book { Title = "Notes from the Attic", Author = "Harper Lee" }
+                new Book { Id = 1, Title = "The Silent Library", Author = "Ava Miles" },
+                new Book { Id = 2, Title = "Gardens of Glass", Author = "Liam Frost" },
+                new Book { Id = 3, Title = "Moonlight Archive", Author = "Elena Brook" },
+                new Book { Id = 4, Title = "Echoes of Dust", Author = "Mason Quinn" },
+                new Book { Id = 5, Title = "Notes from the Attic", Author = "Harper Lee" }
             );
     }
 }
