@@ -1,11 +1,15 @@
+using BookClub.Data;
+
 namespace BookClub
 {
     public partial class Login : Form
     {
-        public Login()
+        private AppDbContext _context;
+        public Login(AppDbContext context)
         {
             InitializeComponent();
-            this.FormClosed += (s, args) => Application.Exit();
+            _context = context;
+            //this.FormClosed += (s, args) => Application.Exit();
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
