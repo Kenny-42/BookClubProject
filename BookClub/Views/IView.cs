@@ -1,4 +1,6 @@
-﻿namespace BookClub.Views;
+﻿using BookClub.Controllers;
+
+namespace BookClub.Views;
 
 public interface IView
 {
@@ -6,4 +8,5 @@ public interface IView
     void OnNavigateFrom();
     Control GetControl();
     static string? ViewKey { get; }
+    IController Controller { get; set; }
 }
