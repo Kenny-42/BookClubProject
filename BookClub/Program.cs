@@ -29,6 +29,7 @@ namespace BookClub
                         options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
 
                     services.AddTransient<Login>();
+                    services.AddTransient<BookList>();
                 })
                 .Build();
 
