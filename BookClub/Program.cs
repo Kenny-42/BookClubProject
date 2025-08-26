@@ -1,6 +1,5 @@
 using BookClub.Controllers;
 using BookClub.Data;
-using BookClub.Services;
 using BookClub.Views;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -35,6 +34,12 @@ internal static class Program
 
                 services.AddTransient<ViewBlue>();
                 services.AddTransient<BlueController>();
+
+                services.AddTransient<LoginView>();
+                services.AddTransient<LoginController>();
+
+                services.AddTransient<RegisterView>();
+                services.AddTransient<RegisterController>();
 
                 services.AddSingleton<ViewNavigator>();
 
