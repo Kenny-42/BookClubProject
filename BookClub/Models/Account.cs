@@ -75,3 +75,43 @@ public class Account
 
     public Account() { }
 }
+
+/// <summary>
+/// This is a Data Transfer Object (DTO) for handling user login information.
+/// </summary>
+public class AccountLogin
+{
+    public string UsernameEmail { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
+    public string ConfirmPassword { get; set; } = string.Empty;
+
+    public AccountLogin(string usernameEmail, string password, string confirmPassword)
+    {
+        UsernameEmail = usernameEmail;
+        Password = password;
+    }
+    public AccountLogin() { }
+}
+
+/// <summary>
+/// This is a Data Transfer Object (DTO) for handling user registration information.
+/// </summary>
+public class AccountRegistration
+{
+    public string Email { get; set; } = string.Empty;
+    public string Username { get; set; } = string.Empty;
+    public DateTime Birthdate { get; set; }
+    public string Password { get; set; } = string.Empty;
+    public string ConfirmPassword { get; set; } = string.Empty;
+
+    public AccountRegistration(string email, string username, DateTime birthdate, string password, string confirmPassword)
+    {
+        Email = email;
+        Username = username;
+        Birthdate = birthdate;
+        Password = password;
+        ConfirmPassword = confirmPassword;
+    }
+
+    public AccountRegistration() { }
+}
