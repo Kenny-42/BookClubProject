@@ -29,17 +29,14 @@ internal static class Program
                 services.AddDbContext<AppDbContext>(options =>
                     options.UseSqlServer(connectionString));
 
-                services.AddTransient<ViewRed>();
-                services.AddTransient<RedController>();
-
-                services.AddTransient<ViewBlue>();
-                services.AddTransient<BlueController>();
-
                 services.AddTransient<LoginView>();
                 services.AddTransient<LoginController>();
 
                 services.AddTransient<RegisterView>();
                 services.AddTransient<RegisterController>();
+
+                services.AddTransient<ForgotPasswordView>();
+                services.AddTransient<ForgotPasswordController>();
 
                 services.AddSingleton<ViewNavigator>();
 
