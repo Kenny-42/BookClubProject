@@ -15,7 +15,7 @@ public partial class AddBook : Form
 
     private void btnLogout_Click(object sender, EventArgs e)
     {
-        var loginForm = Program.AppServices.GetRequiredService<Login>();
+        Login loginForm = Program.AppServices.GetRequiredService<Login>();
         loginForm.Show();
         this.Hide();
     }
