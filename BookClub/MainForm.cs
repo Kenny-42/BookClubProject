@@ -3,38 +3,41 @@ using BookClub.Data;
 using BookClub.Models;
 using BookClub.Services;
 using BookClub.Views;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace BookClub
 {
     public partial class MainForm : Form
     {
-        private AppDbContext _context;
+        private readonly IServiceProvider _serviceProvider;
+        private readonly ViewNavigator _navigator;
         private Panel _viewContainer;
-        private ViewNavigator _navigator;
-        private AccountsService _accountsService;
-        public MainForm(AppDbContext context)
+        private AppDbContext _context;
+        public MainForm(IServiceProvider services)
         {
             InitializeComponent();
-            _context = context;
 
+            // Setup _viewContainer
             _viewContainer = new Panel
             {
-                Dock = DockStyle.Fill,
+                Dock = DockStyle.Fill
             };
-            Controls.Add(_viewContainer);
+            this.Controls.Add(_viewContainer);
 
-            _accountsService = new AccountsService(_context);
+            // Setup ServiceProvider
+            _serviceProvider = services;
 
-            ViewFactory factory = new ViewFactory();
-            factory.Register(() => new LoginView(new LoginController(_accountsService)));
-            factory.Register(() => new RegisterView(new RegisterController(_accountsService)));
-            factory.Register(() => new DashboardView(new DashboardController()));
+            // Setup ViewNavigator
+            _navigator = new ViewNavigator(_viewContainer, _serviceProvider);
 
-            _navigator = new ViewNavigator(_viewContainer, factory);
+            // Register views
+            _navigator.RegisterView<ViewRed, RedController>(ViewRed.ViewKey);
+            _navigator.RegisterView<ViewBlue, BlueController>(ViewBlue.ViewKey);
 
-            var loginView = factory.Create<LoginView>();
-            _navigator.NavigateTo<LoginView>();
 
+            // Start app
+            _navigator.NavigateTo(ViewRed.ViewKey);
         }
     }
 }

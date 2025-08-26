@@ -1,4 +1,7 @@
+using BookClub.Controllers;
 using BookClub.Data;
+using BookClub.Services;
+using BookClub.Views;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,19 +15,9 @@ internal static class Program
     ///  The main entry point for the application.
     /// </summary>
     [STAThread]
-    static void Main()
+    public static void Main()
     {
-        var host = CreateHosterBuilder().Build();
-        // To customize application configuration such as set high DPI settings or default font,
-        // see https://aka.ms/applicationconfiguration.
-        ApplicationConfiguration.Initialize();
-        Application.Run(host.Services.GetRequiredService<MainForm>());
-    }
-
-    // Creates and configures the IHostBuilder for the application,
-    // setting up appsettings.json configuration and registering services like the AppDbContext and forms
-    static IHostBuilder CreateHosterBuilder() =>
-        Host.CreateDefaultBuilder()
+        var host = Host.CreateDefaultBuilder()
             .ConfigureAppConfiguration((context, config) =>
             {
                 config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
@@ -33,9 +26,24 @@ internal static class Program
             {
                 var connectionString = context.Configuration.GetConnectionString("DefaultConnection");
 
+                // Register DbContext and other dependencies
                 services.AddDbContext<AppDbContext>(options =>
                     options.UseSqlServer(connectionString));
 
-                services.AddScoped<MainForm>(); // Register MainForm
-            });
+                services.AddTransient<ViewRed>();
+                services.AddTransient<RedController>();
+
+                services.AddTransient<ViewBlue>();
+                services.AddTransient<BlueController>();
+
+                services.AddSingleton<ViewNavigator>();
+
+                services.AddSingleton<MainForm>();
+            })
+            .Build();
+
+        ApplicationConfiguration.Initialize();
+
+        Application.Run(host.Services.GetRequiredService<MainForm>());
+    }
 }

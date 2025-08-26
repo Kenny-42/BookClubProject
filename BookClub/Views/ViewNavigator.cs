@@ -1,72 +1,69 @@
-﻿using System.Windows.Forms;
+﻿using BookClub.Controllers;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BookClub.Views;
 
 public class ViewNavigator
 {
-    private readonly Panel _targetPanel;
-    private readonly ViewFactory _viewFactory;
-    private IAppView? _currentView;
-    private readonly Dictionary<Type, IAppView> _viewCache = new();
+    private IView? _currentView = null;
+    private readonly Panel _panel;
+    private readonly Dictionary<string, IView> _views = new();
+    private readonly IServiceProvider _serviceProvider;
 
-    public ViewNavigator(Panel targetPanel, ViewFactory factory)
+    public ViewNavigator(Panel panel, IServiceProvider serviceProvider)
     {
-        _targetPanel = targetPanel;
-        _viewFactory = factory;
+        _panel = panel;
+        _serviceProvider = serviceProvider;
     }
 
-    public void NavigateTo<TView>(object? parameter = null, bool reuse = false) where TView : IAppView
+    public void RegisterView<TView, TController>(string key)
+        where TView : IView
+        where TController : IController
     {
-        _currentView?.OnNavigateFrom();
+        if (_views.ContainsKey(key))
+        {
+            throw new ArgumentException($"A view with key `{key}` already exists.");
+        }
+
+        var view = _serviceProvider.GetRequiredService<TView>();
+        var controller = _serviceProvider.GetRequiredService<TController>();
+        controller.View = view;
+
+        controller.NavigationRequested += (k, d) => NavigateTo(k, d);
+
+        _views[key] = view;
+
+        var control = view.GetControl();
+        control.Dock = DockStyle.Fill;
+        control.Visible = false;
+        _panel.Controls.Add(control);
+    }
+
+
+    public void NavigateTo(string key, object? data = null)
+    {
+        if (!_views.TryGetValue(key, out var newView))
+            throw new ArgumentException($"No view registered with key '{key}'.");
+
+        SwitchViews(newView);
+    }
+
+    private void SwitchViews(IView newView)
+    {
+        _currentView?.OnNavigateTo();
+
+        var newControl = newView.GetControl();
+        newControl.Visible = true;
+        newControl.BringToFront();
+
         if (_currentView != null)
         {
-            _currentView.Controller.NavigationRequested -= OnNavigationRequested;
+            var oldControl = _currentView.GetControl();
+            oldControl.Visible = false;
         }
 
-        IAppView newView;
+        _currentView?.OnNavigateFrom();
 
-        if (reuse && _viewCache.TryGetValue(typeof(TView), out var cachedView))
-        {
-            newView = cachedView;
-        }
-        else
-        {
-            newView = _viewFactory.Create<TView>();
-            if (reuse)
-            {
-                _viewCache[typeof(TView)] = newView;
-            }
-        }
-
-        newView.Controller.NavigationRequested += OnNavigationRequested;
-
-        _targetPanel.Controls.Clear();
-
-        var control = newView.GetControl();
-        control.Dock = DockStyle.Fill;
-
-        _targetPanel.Controls.Add(control);
-
-        newView.OnNavigateTo(parameter);
         _currentView = newView;
-    }
-
-    private void OnNavigationRequested(Type viewType, object? parameter)
-    {
-        var method = typeof(ViewNavigator).GetMethod(nameof(NavigateTo))?.MakeGenericMethod(viewType);
-        if (method == null)
-        {
-            MessageBox.Show($"Navigation failed: method NavigateTo<{viewType.Name}> not found.");
-            return;
-        }
-
-        try
-        {
-            method.Invoke(this, new object?[] { parameter, true });
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Navigation failed: {ex.InnerException?.Message ?? ex.Message}");
-        }
     }
 }

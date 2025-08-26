@@ -1,6 +1,12 @@
-﻿namespace BookClub.Controllers;
+﻿using BookClub.Views;
+
+namespace BookClub.Controllers;
 
 public interface IController
 {
-    event Action<Type, object?> NavigationRequested;
+    void Initialize();
+    void Dispose();
+
+    event Action<string, object?>? NavigationRequested;
+    IView View { get; set; }
 }
