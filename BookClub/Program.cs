@@ -26,9 +26,11 @@ internal static class Program
         var host = Host.CreateDefaultBuilder()
             .ConfigureServices((context, services) =>
             {
+                // Register DbContext and configure it to use SQL Server
                 services.AddDbContext<AppDbContext>(options =>
                     options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
 
+                // Register forms for dependency injection
                 services.AddTransient<Login>();
                 services.AddTransient<CreateAccount>();
                 services.AddTransient<BookList>();
@@ -39,10 +41,22 @@ internal static class Program
             })
             .Build();
 
+        // This will apply any pending migrations (including InitialCreate) when the app starts
+        using (var scope = host.Services.CreateScope())
+        {
+            var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+            // Check if there are any pending migrations
+            if (dbContext.Database.GetPendingMigrations().Any())
+            {
+                // Apply any pending migrations
+                dbContext.Database.Migrate();
+            }
+        }
+
         AppServices = host.Services;
 
         var startForm = AppServices.GetRequiredService<Login>();
-
         Application.Run(startForm);
     }
 }
