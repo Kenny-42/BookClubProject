@@ -15,6 +15,11 @@ public partial class Login : Form
 
     private void btnLogin_Click(object sender, EventArgs e)
     {
+        var result = _context.accounts
+            .FirstOrDefault(u => u.Username == txtUsername.Text && u.Password == txtPassword.Text) != null;
+
+        if (!result) return;
+
         // Resolve BookList form via DI
         var bookListForm = Program.AppServices.GetRequiredService<BookList>();
 
