@@ -1,19 +1,64 @@
-﻿namespace BookClub.Views;
+﻿using BookClub.Common;
+using BookClub.Controllers;
+using BookClub.Models;
+using System.ComponentModel;
+
+namespace BookClub.Views;
 
 public class LoginView : UserControl, IView
 {
-    public event EventHandler? RegisterClicked;
-    public event EventHandler? ForgotPasswordClicked;
-    public event EventHandler? LoginClicked;
+    private LoginController _controller;
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+    public IController Controller
+    {
+        get => _controller;
+        set => _controller = (LoginController)value;
+    }
     public LoginView()
     {
         InitializeComponent();
-        buttonRegister.Click += (_, _) => RegisterClicked?.Invoke(this, EventArgs.Empty);
-        buttonForgotPassword.Click += (_, _) => ForgotPasswordClicked?.Invoke(this, EventArgs.Empty);
-        buttonLogin.Click += (_, _) => LoginClicked?.Invoke(this, EventArgs.Empty);
+        buttonLogin.Click += OnLoginClicked;
+        buttonRegister.Click += OnRegisterClicked;
+        buttonForgotPassword.Click += OnForgotPasswordClicked;
     }
+
+    private void OnLoginClicked(object? sender, EventArgs e)
+    {
+        AccountLogin loginAttempt = new AccountLogin
+        {
+            UsernameEmail = textBoxUsernameEmail.Text,
+            Password = textBoxPassword.Text
+        };
+        var result = _controller.TryLogin(loginAttempt);
+
+        if (result != null)
+        {
+            MessageBox.Show("Login successful!");
+        }
+        else
+        {
+            MessageBox.Show("Login Failed");
+        }
+    }
+
+    private void OnRegisterClicked(object? sender, EventArgs e)
+    {
+        _controller.Register();
+    }
+
+    private void OnForgotPasswordClicked(object? sender, EventArgs e)
+    {
+        _controller.ForgotPassword();
+    }
+
     public void OnNavigateTo() { }
-    public void OnNavigateFrom() { }
+    public void OnNavigateFrom()
+    {
+        // Clearing all fields when navigating away
+        textBoxUsernameEmail.Clear();
+        textBoxPassword.Clear();
+    }
+
     public Control GetControl() => this;
     public const string ViewKey = "LoginView";
 
