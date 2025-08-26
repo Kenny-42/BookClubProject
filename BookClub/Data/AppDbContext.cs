@@ -32,9 +32,9 @@ public class AppDbContext : DbContext
                 .HasDefaultValueSql("GETUTCDATE()");
 
             // Check constraint to ensure Birthdate results in age between 13 and 100
-            modelBuilder.Entity<Account>()
-                .ToTable(tb => tb.HasCheckConstraint("CK_Birthdate_AgeRange",
-                "Birthdate <= DATEADD(YEAR, -13, GETDATE()) AND Birthdate >= DATEADD(YEAR, -100, GETDATE())"));
+            //modelBuilder.Entity<Account>()
+            //    .ToTable(tb => tb.HasCheckConstraint("CK_Birthdate_AgeRange",
+            //    "Birthdate <= DATEADD(YEAR, -13, GETDATE()) AND Birthdate >= DATEADD(YEAR, -100, GETDATE())"));
 
             modelBuilder.Entity<Account>()
                 .HasData(
