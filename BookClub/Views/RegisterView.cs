@@ -1,18 +1,65 @@
-﻿namespace BookClub.Views;
+﻿using BookClub.Controllers;
+using BookClub.Models;
+using System.ComponentModel;
+
+namespace BookClub.Views;
 
 public class RegisterView : UserControl, IView
 {
-    public event EventHandler? CancelClicked;
-    public event EventHandler? RegisterClicked;
+    private RegisterController _controller;
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+    public IController Controller
+    {
+        get => _controller;
+        set => _controller = (RegisterController)value;
+    }
+
     public RegisterView()
     {
         InitializeComponent();
-        buttonCancel.Click += (_, _) => CancelClicked?.Invoke(this, EventArgs.Empty);
-        buttonRegister.Click += (_, _) => RegisterClicked?.Invoke(this, EventArgs.Empty);
+        buttonCancel.Click += CancelClicked;
+        buttonRegister.Click += RegisterClicked;
+    }
+
+    private void CancelClicked(object? sender, EventArgs e)
+    {
+        _controller.Cancel();
+    }
+
+    private void RegisterClicked(object? sender, EventArgs e)
+    {
+        AccountRegistration applicant = new()
+        {
+            Email = textBoxEmail.Text,
+            Username = textBoxUsername.Text,
+            Password = textBoxPassword.Text,
+            ConfirmPassword = textBoxConfirmPassword.Text,
+            Birthdate = dateTimePicker1.Value
+        };
+
+        var result = _controller.TryRegister(applicant);
+
+        if (result.Success)
+        {
+            MessageBox.Show("Registration successful! You may now log in.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            _controller.Cancel();
+        }
+        else
+        {
+            MessageBox.Show(result.Message, "Registration Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 
     public void OnNavigateTo() { }
-    public void OnNavigateFrom() { }
+    public void OnNavigateFrom()
+    {
+        // Clearing all fields when navigating away
+        textBoxEmail.Clear();
+        textBoxUsername.Clear();
+        textBoxPassword.Clear();
+        textBoxConfirmPassword.Clear();
+        dateTimePicker1.Value = DateTime.Now;
+    }
     public Control GetControl() => this;
     public static string ViewKey => "RegisterView";
 
