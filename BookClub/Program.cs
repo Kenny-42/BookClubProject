@@ -8,7 +8,7 @@ namespace BookClub;
 
 internal static class Program
 {
-    public static IServiceProvider serviceProvider { get; private set; }
+    public static IServiceProvider AppServices { get; private set; }
     /// <summary>
     ///  The main entry point for the application.
     /// </summary>
@@ -30,13 +30,18 @@ internal static class Program
                     options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
 
                 services.AddTransient<Login>();
+                services.AddTransient<CreateAccount>();
                 services.AddTransient<BookList>();
+                services.AddTransient<AddBook>();
+                services.AddTransient<DiscussionBoard>();
+                services.AddTransient<Reviews>();
+
             })
             .Build();
 
-        serviceProvider = host.Services;
+        AppServices = host.Services;
 
-        var startForm = serviceProvider.GetRequiredService<Login>();
+        var startForm = AppServices.GetRequiredService<Login>();
 
         Application.Run(startForm);
     }
