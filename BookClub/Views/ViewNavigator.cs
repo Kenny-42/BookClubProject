@@ -27,6 +27,7 @@ public class ViewNavigator
 
         var view = _serviceProvider.GetRequiredService<TView>();
         var controller = _serviceProvider.GetRequiredService<TController>();
+        view.Controller = controller;
         controller.View = view;
 
         controller.NavigationRequested += (k, d) => NavigateTo(k, d);
