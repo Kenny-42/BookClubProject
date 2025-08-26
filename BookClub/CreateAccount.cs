@@ -10,6 +10,7 @@ public partial class CreateAccount : Form
     {
         InitializeComponent();
         _context = context;
+        this.FormClosed += (s, args) => Application.Exit();
     }
 
     private void btnLogin_Click(object sender, EventArgs e)

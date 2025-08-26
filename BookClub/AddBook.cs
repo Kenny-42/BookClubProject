@@ -10,6 +10,7 @@ public partial class AddBook : Form
     {
         InitializeComponent();
         _context = context;
+        this.FormClosed += (s, args) => Application.Exit();
     }
 
     private void btnLogout_Click(object sender, EventArgs e)

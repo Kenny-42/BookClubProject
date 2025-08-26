@@ -11,6 +11,7 @@ namespace BookClub
         {
             InitializeComponent();
             _context = context;
+            this.FormClosed += (s, args) => Application.Exit();
             //PopulateBookList();
         }
 
@@ -71,7 +72,7 @@ namespace BookClub
                 btn.Click += (s, e) =>
                 {
                     int bookId = (int)((Button)s).Tag;
-                    Reviews reviewsForm = new Reviews(bookId);
+                    Reviews reviewsForm = new Reviews(_context, bookId);
                     reviewsForm.Show();
                     this.Hide();
                 };
