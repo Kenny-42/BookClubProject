@@ -15,7 +15,7 @@ public class Book
     [Required]
     public string Author { get; set; }
 
-    [Required]
+    [StringLength(1024, ErrorMessage = "Description cannot be longer than 1024 characters.")]
     public string Description { get; set; }
 
     [Required]
