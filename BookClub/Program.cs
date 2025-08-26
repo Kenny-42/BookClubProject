@@ -14,6 +14,9 @@ namespace BookClub
         [STAThread]
         static void Main()
         {
+            // This must be the first line
+            ApplicationConfiguration.Initialize();
+
             var config = new ConfigurationBuilder()
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -24,11 +27,14 @@ namespace BookClub
                 {
                     services.AddDbContext<AppDbContext>(options =>
                         options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
+
+                    services.AddTransient<Login>();
                 })
                 .Build();
 
-            ApplicationConfiguration.Initialize();
-            Application.Run(new Login());
+            var startForm = host.Services.GetRequiredService<Login>();
+
+            Application.Run(startForm);
         }
     }
 }
