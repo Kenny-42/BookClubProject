@@ -1,9 +1,11 @@
-﻿using BookClub.Data;
+﻿using BookClub.Common;
+using BookClub.Data;
+using BookClub.Models;
 using BookClub.Views;
 
 namespace BookClub.Controllers;
 
-public class RegisterController : IController, IDisposable
+public class RegisterController : IController
 {
     private readonly AppDbContext _context;
     private RegisterView _view;
@@ -12,34 +14,20 @@ public class RegisterController : IController, IDisposable
     public IView View
     {
         get => _view;
-        set
-        {
-            _view = (RegisterView)value;
-            Initialize();
-        }
+        set => _view = (RegisterView)value;
     }
     public RegisterController(RegisterView view, AppDbContext context)
     {
         _context = context;
         _view = view;
-
-        Initialize();
     }
 
-    public void Initialize()
+    internal Result TryRegister(AccountRegistration applicant)
     {
-        _view.CancelClicked += OnCancelClicked;
-        _view.RegisterClicked += OnRegisterClicked;
-    }
 
-    public void Dispose()
-    {
-        _view.CancelClicked -= OnCancelClicked;
-        _view.RegisterClicked -= OnRegisterClicked;
+        return Result.Fail("Implement this.");
     }
-
-    private void OnRegisterClicked(object? sender, EventArgs e) { }
-    private void OnCancelClicked(object? sender, EventArgs e)
+    internal void Cancel()
     {
         NavigationRequested?.Invoke(LoginView.ViewKey, null);
     }
