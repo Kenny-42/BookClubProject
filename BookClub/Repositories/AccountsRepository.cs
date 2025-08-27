@@ -59,13 +59,15 @@ public class AccountsRepository
      *  DELETE Operations 
      */
 
-    public void Delete(int id)
+    public bool Delete(int id)
     {
         var account = _context.accounts.Find(id);
         if (account != null)
         {
             _context.accounts.Remove(account);
             _context.SaveChanges();
+            return true;
         }
+        return false;
     }
 }
