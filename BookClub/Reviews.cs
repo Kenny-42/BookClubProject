@@ -56,9 +56,9 @@ namespace BookClub
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            //Login loginForm = new Login();
-            //loginForm.Show();
-            //this.Hide();
+            var loginForm = Program.AppServices.GetRequiredService<Login>();
+            loginForm.Show();
+            this.Hide();
         }
 
         private void btnBookList_Click(object sender, EventArgs e)
