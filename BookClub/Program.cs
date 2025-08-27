@@ -1,4 +1,5 @@
 using BookClub.Data;
+using BookClub.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,6 +38,8 @@ internal static class Program
                 services.AddTransient<AddBook>();
                 services.AddTransient<DiscussionBoard>();
                 services.AddTransient<Reviews>();
+
+                services.AddScoped<AccountsRepository>();
 
             })
             .Build();
