@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using BookClub.Data;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BookClub
 {
     public partial class Reviews : Form
     {
+        private AppDbContext _context;
         private PictureBox[] stars;
         private int currentRating = 0;
         private int _bookId;
 
-        public Reviews(int bookId)
+        public Reviews(AppDbContext context, int bookId)
         {
             InitializeComponent();
+            _context = context;
 
             _bookId = bookId;
 
@@ -61,21 +56,21 @@ namespace BookClub
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            Login loginForm = new Login();
+            var loginForm = Program.AppServices.GetRequiredService<Login>();
             loginForm.Show();
             this.Hide();
         }
 
         private void btnBookList_Click(object sender, EventArgs e)
         {
-            BookList bookListForm = new BookList();
+            BookList bookListForm = Program.AppServices.GetRequiredService<BookList>();
             bookListForm.Show();
             this.Hide();
         }
 
         private void btnOpenDiscussionBoard_Click(object sender, EventArgs e)
         {
-            DiscussionBoard discussionBoardForm = new DiscussionBoard(_bookId);
+            DiscussionBoard discussionBoardForm = Program.AppServices.GetRequiredService<DiscussionBoard>();
             discussionBoardForm.Show();
             this.Hide();
         }
