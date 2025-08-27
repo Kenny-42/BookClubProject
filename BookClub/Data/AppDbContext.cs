@@ -1,7 +1,5 @@
 ﻿using BookClub.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic.ApplicationServices;
-
 namespace BookClub.Data;
 
 public class AppDbContext : DbContext
