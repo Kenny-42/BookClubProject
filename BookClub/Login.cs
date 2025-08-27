@@ -17,12 +17,16 @@ public partial class Login : Form
 
     private void btnLogin_Click(object sender, EventArgs e)
     {
-        //bool result = _context.accounts
-        //    .FirstOrDefault(u => u.Username == txtUsername.Text && u.Password == txtPassword.Text) != null;
-
+        // Very simple login check
+        // Recommend turning into separate function and adding more checks
+        // e.g. signature `private string TryLogin(string username, string password)
         bool result = _repo.GetByKey(a => a.Username == txtUsername.Text && a.Password == txtPassword.Text) != null;
 
-        if (!result) return;
+        if (!result)
+        {
+            MessageBox.Show("Nope");
+            return;
+        }
 
         // Resolve BookList form via DI
         BookList bookListForm = Program.AppServices.GetRequiredService<BookList>();
@@ -39,10 +43,5 @@ public partial class Login : Form
         CreateAccount createAccountForm = Program.AppServices.GetRequiredService<CreateAccount>();
         createAccountForm.Show();
         this.Hide();
-    }
-
-    private void TryLogin()
-    {
-        
     }
 }
