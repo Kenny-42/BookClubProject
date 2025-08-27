@@ -34,7 +34,7 @@ public class AccountsRepository
      *  READ Operations 
      */
 
-    public Account? GetByKey(Func<Account, bool> predicate)
+    public Account? GetByKey(Expression<Func<Account, bool>> predicate)
     {
         return _context.accounts.FirstOrDefault(predicate);
     }
