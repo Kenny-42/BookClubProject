@@ -35,3 +35,26 @@ public class Account
     }
     public Account() { }
 }
+
+/// <summary>
+/// This is a Data Transfer Object (DTO) for updating Account entities.
+/// </summary>
+public class AccountUpdateDTO
+{
+    public string? FirstName { get; set; }
+    public string? LastName { get; set; }
+    public string? Email { get; set; }
+    public string? Username { get; set; }
+    public string? Password { get; set; }
+
+    public AccountUpdateDTO(string firstName, string lastName, string email, string username, string password)
+    {
+        FirstName = firstName;
+        LastName = lastName;
+        Email = email;
+        Username = username;
+        Password = password;
+    }
+
+    public AccountUpdateDTO() { }
+}
