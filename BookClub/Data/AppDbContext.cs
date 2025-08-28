@@ -17,11 +17,11 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<Account>()
             .HasData(
-                new Account { Id = 1, FirstName = "Alice", LastName = "Smith", Username = "alice_smith", Password = "123456" },
-                new Account { Id = 2, FirstName = "Bob", LastName = "Jones", Username = "bob_jones", Password = "123456" },
-                new Account { Id = 3, FirstName = "Charlie", LastName = "Brown", Username = "charlie_brown", Password = "123456" },
-                new Account { Id = 4, FirstName = "Diana", LastName = "White", Username = "diana_white", Password = "123456" },
-                new Account { Id = 5, FirstName = "Ella", LastName = "Green", Username = "ella_green", Password = "123456" }
+                new Account { Id = 1, FirstName = "Alice", LastName = "Smith", Email = "alice.smith@mail.com", Username = "alice_smith", Password = "123456" },
+                new Account { Id = 2, FirstName = "Bob", LastName = "Jones", Email = "bob.jones@mail.com", Username = "bob_jones", Password = "123456" },
+                new Account { Id = 3, FirstName = "Charlie", LastName = "Brown", Email = "charlie.brown@mail.com", Username = "charlie_brown", Password = "123456" },
+                new Account { Id = 4, FirstName = "Diana", LastName = "White", Email = "diana.white@mail.com", Username = "diana_white", Password = "123456" },
+                new Account { Id = 5, FirstName = "Ella", LastName = "Green", Email = "ella.green@mail.com", Username = "ella_green", Password = "123456" }
             );
 
         modelBuilder.Entity<Book>()
