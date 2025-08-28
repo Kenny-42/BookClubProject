@@ -1,5 +1,6 @@
 ﻿using BookClub.Data;
 using BookClub.Models;
+using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -36,6 +37,9 @@ public class AccountsRepository
 
     public Account? GetByKey(Expression<Func<Account, bool>> predicate)
     {
+        if ( predicate == null)
+            throw new ArgumentNullException(nameof(predicate), "Predicate cannot be null");
+
         return _context.accounts.FirstOrDefault(predicate);
     }
 
@@ -48,11 +52,29 @@ public class AccountsRepository
      *  UPDATE Operations 
      */
 
-    public void Update(Account account)
+    public bool Update(int id, AccountUpdateDTO dto)
     {
-        // Note: this updates all fields. For partial updates, consider using a different approach.
-        _context.accounts.Update(account);
-        _context.SaveChanges();
+        var validationContext = new ValidationContext(dto);
+        var validationResults = new List<ValidationResult>();
+
+        bool isValid = Validator.TryValidateObject(dto, validationContext, validationResults, true);
+
+        if (!isValid)
+        {
+            // Validation failed; optionally log errors or handle as needed
+            return false;
+        }
+
+        var account = _context.accounts.Find(id);
+        if (account == null) return false;
+
+        account.FirstName = dto.FirstName ?? account.FirstName;
+        account.LastName = dto.LastName ?? account.LastName;
+        account.Email = dto.Email ?? account.Email;
+        account.Username = dto.Username ?? account.Username;
+        account.Password = dto.Password ?? account.Password;
+
+        return _context.SaveChanges() > 0;
     }
 
     /*

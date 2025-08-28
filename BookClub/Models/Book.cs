@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookClub.Models;
 
+/// <summary>
+/// This is the Book entity model.
+/// </summary>
 public class Book
 {
     [Key]
@@ -32,4 +35,19 @@ public class Book
     }
 
     public Book() { }
+}
+
+/// <summary>
+/// This is a Data Transfer Object (DTO) for updating Book entities.
+/// </summary>
+public class BookUpdateDTO
+{
+    public string? Title { get; set; }
+    public string? Author { get; set;  }
+
+    [StringLength(1024, ErrorMessage = "Description cannot be longer than 1024 characters.")]
+    public string? Description { get; set; }
+
+    [StringLength(13, ErrorMessage = "ISBN must be 13 characters long.")]
+    public string? ISBN { get; set; }
 }
