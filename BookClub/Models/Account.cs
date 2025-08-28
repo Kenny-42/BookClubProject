@@ -16,16 +16,20 @@ public class Account
     public string LastName { get; set; }
 
     [Required]
+    public string Email { get; set; }
+
+    [Required]
     public string Username { get; set; }
 
     [Required]
     public string Password { get; set; }
 
-    public Account(int id, string firstName, string lastName, string username, string password)
+    public Account(int id, string firstName, string lastName, string email, string username, string password)
     {
         Id = id;
         FirstName = firstName;
         LastName = lastName;
+        Email = email;
         Username = username;
         Password = password;
     }
