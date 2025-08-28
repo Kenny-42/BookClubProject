@@ -39,6 +39,7 @@ internal static class Program
                 services.AddTransient<AddBook>();
                 services.AddTransient<DiscussionBoard>();
                 services.AddTransient<Reviews>();
+                services.AddTransient<EditAccount>();
 
                 services.AddScoped<AccountsRepository>();
 
