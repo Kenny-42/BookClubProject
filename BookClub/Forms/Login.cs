@@ -16,14 +16,10 @@ public partial class Login : Form
 
     private void btnLogin_Click(object sender, EventArgs e)
     {
-        // Very simple login check
-        // Recommend turning into separate function and adding more checks
-        // e.g. signature `private string TryLogin(string username, string password)
-        bool result = _repo.GetByKey(a => a.Username == txtUsername.Text && a.Password == txtPassword.Text) != null;
-
-        if (!result)
+        // Attempt login
+        if (!TryLogin(txtUsername.Text, txtPassword.Text, out string error))
         {
-            MessageBox.Show("Nope");
+            MessageBox.Show(error, "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
 
@@ -49,5 +45,40 @@ public partial class Login : Form
         ResetPassword resetPasswordForm = Program.AppServices.GetRequiredService<ResetPassword>();
         resetPasswordForm.Show();
         this.Hide();
+    }
+
+    private bool TryLogin(string username, string password, out string error)
+    {
+        error = string.Empty;
+
+        // Trim inputs to avoid leading/trailing spaces
+        username = username.Trim();
+        password = password.Trim();
+
+        // Make sure both fields are filled
+        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+        {
+            error = "Both fields must be filled.";
+            return false;
+        }
+
+        // Retrieve account by username
+        Account? result = _repo.GetByKey(a => a.Username == username);
+
+        // Check if account exists
+        if (result == null)
+        {
+            error = $"No Account with username: {username} found.";
+            return false;
+        }
+
+        // Check password
+        if (result.Password != password)
+        {
+            error = "Incorrect password.";
+            return false;
+        }
+
+        return true;
     }
 }
