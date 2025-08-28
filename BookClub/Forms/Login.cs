@@ -3,7 +3,7 @@ using BookClub.Models;
 using BookClub.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BookClub;
+namespace BookClub.Forms;
 
 public partial class Login : Form
 {

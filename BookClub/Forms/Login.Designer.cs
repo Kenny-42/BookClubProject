@@ -1,4 +1,4 @@
-﻿namespace BookClub
+﻿namespace BookClub.Forms
 {
     partial class Login
     {

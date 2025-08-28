@@ -1,7 +1,7 @@
 ﻿using BookClub.Data;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BookClub;
+namespace BookClub.Forms;
 
 public partial class CreateAccount : Form
 {
