@@ -159,7 +159,7 @@ namespace BookClub.Repositories.Tests
             _context.SaveChanges();
 
             // Act
-            //account.FirstName = "Jane";
+            
             AccountUpdateDTO dto = new AccountUpdateDTO
             {
                 FirstName = "Jane"
