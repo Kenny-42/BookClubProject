@@ -1,4 +1,3 @@
-using BookClub.Data;
 using BookClub.Models;
 using BookClub.Repositories;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,6 +41,13 @@ public partial class Login : Form
     {
         CreateAccount createAccountForm = Program.AppServices.GetRequiredService<CreateAccount>();
         createAccountForm.Show();
+        this.Hide();
+    }
+
+    private void buttonResetPassword_Click(object sender, EventArgs e)
+    {
+        ResetPassword resetPasswordForm = Program.AppServices.GetRequiredService<ResetPassword>();
+        resetPasswordForm.Show();
         this.Hide();
     }
 }
