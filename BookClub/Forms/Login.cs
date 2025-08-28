@@ -1,4 +1,3 @@
-using BookClub.Data;
 using BookClub.Models;
 using BookClub.Repositories;
 using Microsoft.Extensions.DependencyInjection;
