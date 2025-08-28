@@ -102,7 +102,7 @@ namespace BookClub.Forms
             }
             else
             {
-                MessageBox.Show("Failed to update account.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No changes to account.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
