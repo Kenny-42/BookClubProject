@@ -148,6 +148,7 @@
             btnSaveChanges.TabIndex = 16;
             btnSaveChanges.Text = "Save Changes";
             btnSaveChanges.UseVisualStyleBackColor = true;
+            btnSaveChanges.Click += btnSaveChanges_Click;
             // 
             // lblPassword
             // 
