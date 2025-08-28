@@ -25,15 +25,10 @@ public partial class Login : Form
             return;
         }
 
-        // Grab account ID to pass to other forms
-        int accountId = account.Id;
-
-        // Resolve BookList form via DI
+        var userContext = Program.AppServices.GetRequiredService<UserContext>();
+        userContext.CurrentAccount = account;
         BookList bookListForm = Program.AppServices.GetRequiredService<BookList>();
-
-        // Show the BookList form
         bookListForm.Show();
-
         // Hide the current Login form
         this.Hide();
     }
