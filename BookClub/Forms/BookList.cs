@@ -37,7 +37,7 @@ public partial class BookList : Form
     private void btnEditAccount_Click(object sender, EventArgs e)
     {
         // Pass the current account from UserContext
-        EditAccount editAccountForm = new EditAccount(_userContext.CurrentAccount, _repo);
+        EditAccount editAccountForm = new EditAccount(_userContext, _repo);
         editAccountForm.Show();
         this.Hide();
     }
