@@ -44,4 +44,11 @@ public partial class Login : Form
         createAccountForm.Show();
         this.Hide();
     }
+
+    private void buttonResetPassword_Click(object sender, EventArgs e)
+    {
+        ResetPassword resetPasswordForm = Program.AppServices.GetRequiredService<ResetPassword>();
+        resetPasswordForm.Show();
+        this.Hide();
+    }
 }

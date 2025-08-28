@@ -33,40 +33,44 @@
             txtPassword = new TextBox();
             btnLogin = new Button();
             btnCreateAccount = new Button();
+            buttonResetPassword = new Button();
             SuspendLayout();
             // 
             // lblLogin
             // 
             lblLogin.AutoSize = true;
             lblLogin.Font = new Font("Segoe UI", 20F);
-            lblLogin.Location = new Point(336, 9);
+            lblLogin.Location = new Point(294, 7);
             lblLogin.Name = "lblLogin";
-            lblLogin.Size = new Size(103, 46);
+            lblLogin.Size = new Size(84, 37);
             lblLogin.TabIndex = 0;
             lblLogin.Text = "Login";
             lblLogin.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // txtUsername
             // 
-            txtUsername.Location = new Point(252, 88);
+            txtUsername.Location = new Point(220, 66);
+            txtUsername.Margin = new Padding(3, 2, 3, 2);
             txtUsername.Name = "txtUsername";
             txtUsername.PlaceholderText = "Username";
-            txtUsername.Size = new Size(265, 27);
+            txtUsername.Size = new Size(232, 23);
             txtUsername.TabIndex = 1;
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(252, 148);
+            txtPassword.Location = new Point(220, 111);
+            txtPassword.Margin = new Padding(3, 2, 3, 2);
             txtPassword.Name = "txtPassword";
             txtPassword.PlaceholderText = "Password";
-            txtPassword.Size = new Size(265, 27);
+            txtPassword.Size = new Size(232, 23);
             txtPassword.TabIndex = 2;
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(312, 210);
+            btnLogin.Location = new Point(342, 157);
+            btnLogin.Margin = new Padding(3, 2, 3, 2);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(147, 53);
+            btnLogin.Size = new Size(110, 40);
             btnLogin.TabIndex = 3;
             btnLogin.Text = "Login";
             btnLogin.UseVisualStyleBackColor = true;
@@ -74,24 +78,38 @@
             // 
             // btnCreateAccount
             // 
-            btnCreateAccount.Location = new Point(276, 313);
+            btnCreateAccount.Location = new Point(242, 235);
+            btnCreateAccount.Margin = new Padding(3, 2, 3, 2);
             btnCreateAccount.Name = "btnCreateAccount";
-            btnCreateAccount.Size = new Size(228, 50);
+            btnCreateAccount.Size = new Size(200, 38);
             btnCreateAccount.TabIndex = 4;
             btnCreateAccount.Text = "Create Account";
             btnCreateAccount.UseVisualStyleBackColor = true;
-            btnCreateAccount.Click += new System.EventHandler(this.btnCreateAccount_Click);
+            btnCreateAccount.Click += btnCreateAccount_Click;
+            // 
+            // buttonResetPassword
+            // 
+            buttonResetPassword.Location = new Point(220, 157);
+            buttonResetPassword.Margin = new Padding(3, 2, 3, 2);
+            buttonResetPassword.Name = "buttonResetPassword";
+            buttonResetPassword.Size = new Size(110, 40);
+            buttonResetPassword.TabIndex = 5;
+            buttonResetPassword.Text = "Reset Password";
+            buttonResetPassword.UseVisualStyleBackColor = true;
+            buttonResetPassword.Click += buttonResetPassword_Click;
             // 
             // Login
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(700, 338);
+            Controls.Add(buttonResetPassword);
             Controls.Add(btnCreateAccount);
             Controls.Add(btnLogin);
             Controls.Add(txtPassword);
             Controls.Add(txtUsername);
             Controls.Add(lblLogin);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Login";
             Text = "Login";
             ResumeLayout(false);
@@ -105,5 +123,6 @@
         private TextBox txtPassword;
         private Button btnLogin;
         private Button btnCreateAccount;
+        private Button buttonResetPassword;
     }
 }
