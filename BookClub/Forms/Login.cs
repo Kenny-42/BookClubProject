@@ -17,11 +17,16 @@ public partial class Login : Form
     private void btnLogin_Click(object sender, EventArgs e)
     {
         // Attempt login
-        if (!TryLogin(txtUsername.Text, txtPassword.Text, out string error))
+        string error;
+        Account? account = TryLogin(txtUsername.Text, txtPassword.Text, out error);
+        if (account == null)
         {
             MessageBox.Show(error, "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
+
+        // Grab account ID to pass to other forms
+        int accountId = account.Id;
 
         // Resolve BookList form via DI
         BookList bookListForm = Program.AppServices.GetRequiredService<BookList>();
@@ -47,7 +52,7 @@ public partial class Login : Form
         this.Hide();
     }
 
-    private bool TryLogin(string username, string password, out string error)
+    private Account? TryLogin(string username, string password, out string error)
     {
         error = string.Empty;
 
@@ -59,7 +64,7 @@ public partial class Login : Form
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
         {
             error = "Both fields must be filled.";
-            return false;
+            return null;
         }
 
         // Retrieve account by username
@@ -69,16 +74,16 @@ public partial class Login : Form
         if (result == null)
         {
             error = $"No Account with username: {username} found.";
-            return false;
+            return null;
         }
 
         // Check password
         if (result.Password != password)
         {
             error = "Incorrect password.";
-            return false;
+            return null;
         }
 
-        return true;
+        return result;
     }
 }
