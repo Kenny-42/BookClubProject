@@ -1,4 +1,5 @@
-﻿using BookClub.Repositories;
+﻿using BookClub.Models;
+using BookClub.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.RegularExpressions;
 
@@ -83,7 +84,12 @@ public partial class ResetPassword : Form
 
         account!.Password = newPassword;
 
-        _repo.Update(account);
+        AccountUpdateDTO dto = new()
+        {
+            Password = newPassword
+        };
+
+        _repo.Update(account.Id, dto);
 
         MessageBox.Show("Password reset successfully. Please log in with your new password.");
 
