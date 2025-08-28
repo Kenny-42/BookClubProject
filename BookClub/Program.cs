@@ -44,6 +44,7 @@ internal static class Program
 
                 // Register repositories
                 services.AddScoped<AccountsRepository>();
+                services.AddScoped<BookRepository>();
 
             })
             .Build();
