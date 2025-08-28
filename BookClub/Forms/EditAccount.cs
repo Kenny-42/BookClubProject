@@ -16,6 +16,8 @@ namespace BookClub.Forms
             _userContext = userContext;
             _repo = repo;
             this.FormClosed += (s, args) => Application.Exit();
+
+            PopulateTextboxes(this, _userContext.CurrentAccount);
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
@@ -104,6 +106,25 @@ namespace BookClub.Forms
             {
                 MessageBox.Show("No changes to account.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            // Repopulate textboxes with updated values
+            PopulateTextboxes(this, currentAccount);
+        }
+
+        public static void PopulateTextboxes(EditAccount form, Account account)
+        {
+            // set textbox text to empty and placeholder to current value
+            form.txtFirstName.Text = "";
+            form.txtLastName.Text = "";
+            form.txtEmail.Text = "";
+            form.txtUsername.Text = "";
+            form.txtPassword.Text = "";
+
+            form.txtFirstName.PlaceholderText = account.FirstName;
+            form.txtLastName.PlaceholderText = account.LastName;
+            form.txtEmail.PlaceholderText = account.Email;
+            form.txtUsername.PlaceholderText = account.Username;
+            form.txtPassword.PlaceholderText = account.Password;
         }
     }
 }
