@@ -17,6 +17,8 @@ namespace BookClub.Repositories.Tests
     {
         private AppDbContext _context;
         private BookRepository _repo;
+        private Book _testBook;
+        private List<Book> _testBooks;
 
         [TestInitialize]
         public void BookRepositoryTest()
@@ -26,19 +28,40 @@ namespace BookClub.Repositories.Tests
                 .Options;
             _context = new AppDbContext(options);
             _repo = new BookRepository(_context);
+
+            _testBooks = new List<Book>()
+            {
+                new Book()
+                {
+                    Title = "Book One",
+                    Author = "Author A",
+                    Description = "First book description.",
+                    ISBN = "111-1111111111"
+                },
+                new Book()
+                {
+                    Title = "Book Two",
+                    Author = "Author B",
+                    Description = "Second book description.",
+                    ISBN = "222-2222222222"
+                },
+                new Book()
+                {
+                    Title = "Book Three",
+                    Author = "Author C",
+                    Description = "Third book description.",
+                    ISBN = "333-3333333333"
+                }
+            };
+
+            _testBook = _testBooks.First();
         }
 
         [TestMethod()]
         public void AddTest_ShouldReturnTrue()
         {
             // Arrange
-            Book book = new Book()
-            {
-                Title = "New Book",
-                Author = "Author X",
-                Description = "This is a new book.",
-                ISBN = "987-6543210987"
-            };
+            Book book = _testBook;
 
             // Act
             var result = _repo.Add(book);
@@ -51,13 +74,7 @@ namespace BookClub.Repositories.Tests
         public void GetByKeyTest_Title_ShouldReturnBook()
         {
             // Arrange
-            Book book = new Book()
-            {
-                Title = "Original Title",
-                Author = "Author A",
-                Description = "A fascinating fiction book.",
-                ISBN = "123-4567890123"
-            };
+            Book book = _testBook;
 
             _context.books.Add(book);
             _context.SaveChanges();
@@ -84,30 +101,7 @@ namespace BookClub.Repositories.Tests
         public void GetAllTest_ShouldReturnAll()
         {
             // Arrange
-            var books = new List<Book>()
-            {
-                new Book()
-                {
-                    Title = "Book One",
-                    Author = "Author A",
-                    Description = "First book description.",
-                    ISBN = "111-1111111111"
-                },
-                new Book()
-                {
-                    Title = "Book Two",
-                    Author = "Author B",
-                    Description = "Second book description.",
-                    ISBN = "222-2222222222"
-                },
-                new Book()
-                {
-                    Title = "Book Three",
-                    Author = "Author C",
-                    Description = "Third book description.",
-                    ISBN = "333-3333333333"
-                }
-            };
+            var books = _testBooks;
 
             // Act
             var list = _repo.GetAll();
@@ -121,13 +115,7 @@ namespace BookClub.Repositories.Tests
         public void UpdateTest_ShouldChangeTitle()
         {
             // Arrange
-            var book = new Book()
-            {
-                Title = "Original Title",
-                Author = "Author A",
-                Description = "A fascinating fiction book.",
-                ISBN = "123-4567890123"
-            };
+            var book = _testBook;
 
             _context.books.Add(book);
 
@@ -153,13 +141,7 @@ namespace BookClub.Repositories.Tests
         public void DeleteTest_ShouldReturnTrue()
         {
             // Arrange
-            var book = new Book()
-            {
-                Title = "To Be Deleted",
-                Author = "Author X",
-                Description = "This book will be deleted.",
-                ISBN = "999-9999999999"
-            };
+            var book = _testBook;
 
             _context.books.Add(book);
             _context.SaveChanges();
