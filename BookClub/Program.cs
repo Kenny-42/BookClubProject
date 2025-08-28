@@ -35,6 +35,7 @@ internal static class Program
                 // Register forms for dependency injection
                 services.AddTransient<Login>();
                 services.AddTransient<CreateAccount>();
+                services.AddTransient<ResetPassword>();
                 services.AddTransient<BookList>();
                 services.AddTransient<AddBook>();
                 services.AddTransient<DiscussionBoard>();
