@@ -36,6 +36,7 @@ partial class CreateAccount
         txtUsername = new TextBox();
         btnCreateAccount = new Button();
         txtPassword = new TextBox();
+        txtEmail = new TextBox();
         SuspendLayout();
         // 
         // btnLogin
@@ -60,7 +61,7 @@ partial class CreateAccount
         // 
         // txtFirstName
         // 
-        txtFirstName.Location = new Point(288, 132);
+        txtFirstName.Location = new Point(286, 120);
         txtFirstName.Name = "txtFirstName";
         txtFirstName.PlaceholderText = "First Name";
         txtFirstName.Size = new Size(225, 27);
@@ -68,7 +69,7 @@ partial class CreateAccount
         // 
         // txtLastName
         // 
-        txtLastName.Location = new Point(288, 179);
+        txtLastName.Location = new Point(286, 167);
         txtLastName.Name = "txtLastName";
         txtLastName.PlaceholderText = "Last Name";
         txtLastName.Size = new Size(225, 27);
@@ -76,7 +77,7 @@ partial class CreateAccount
         // 
         // txtUsername
         // 
-        txtUsername.Location = new Point(288, 222);
+        txtUsername.Location = new Point(286, 260);
         txtUsername.Name = "txtUsername";
         txtUsername.PlaceholderText = "Username";
         txtUsername.Size = new Size(225, 27);
@@ -84,7 +85,7 @@ partial class CreateAccount
         // 
         // btnCreateAccount
         // 
-        btnCreateAccount.Location = new Point(318, 323);
+        btnCreateAccount.Location = new Point(315, 358);
         btnCreateAccount.Name = "btnCreateAccount";
         btnCreateAccount.Size = new Size(163, 61);
         btnCreateAccount.TabIndex = 6;
@@ -94,17 +95,26 @@ partial class CreateAccount
         // 
         // txtPassword
         // 
-        txtPassword.Location = new Point(288, 272);
+        txtPassword.Location = new Point(286, 307);
         txtPassword.Name = "txtPassword";
         txtPassword.PlaceholderText = "Password";
         txtPassword.Size = new Size(225, 27);
         txtPassword.TabIndex = 7;
+        // 
+        // txtEmail
+        // 
+        txtEmail.Location = new Point(286, 214);
+        txtEmail.Name = "txtEmail";
+        txtEmail.PlaceholderText = "Email";
+        txtEmail.Size = new Size(225, 27);
+        txtEmail.TabIndex = 8;
         // 
         // CreateAccount
         // 
         AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(800, 450);
+        Controls.Add(txtEmail);
         Controls.Add(txtPassword);
         Controls.Add(btnCreateAccount);
         Controls.Add(txtUsername);
@@ -127,4 +137,5 @@ partial class CreateAccount
     private TextBox txtUsername;
     private Button btnCreateAccount;
     private TextBox txtPassword;
+    private TextBox txtEmail;
 }
