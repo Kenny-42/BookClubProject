@@ -1,15 +1,16 @@
 ﻿using BookClub.Data;
+using BookClub.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BookClub.Forms;
 
 public partial class AddBook : Form
 {
-    private AppDbContext _context;
-    public AddBook(AppDbContext context)
+    private BookRepository _repo;
+    public AddBook(BookRepository repo)
     {
         InitializeComponent();
-        _context = context;
+        _repo = repo;
         this.FormClosed += (s, args) => Application.Exit();
     }
 
