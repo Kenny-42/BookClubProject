@@ -1,4 +1,6 @@
 ﻿using BookClub.Data;
+using BookClub.Models;
+using BookClub.Repositories;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -6,11 +8,14 @@ namespace BookClub.Forms;
 
 public partial class BookList : Form
 {
-    private AppDbContext _context;
-    public BookList(AppDbContext context)
+    private AccountsRepository _repo;
+    private UserContext _userContext;
+
+    public BookList(UserContext userContext, AccountsRepository repo)
     {
         InitializeComponent();
-        _context = context;
+        _repo = repo;
+        _userContext = userContext;
         this.FormClosed += (s, args) => Application.Exit();
         //PopulateBookList();
     }
@@ -31,7 +36,8 @@ public partial class BookList : Form
 
     private void btnEditAccount_Click(object sender, EventArgs e)
     {
-        EditAccount editAccountForm = Program.AppServices.GetRequiredService<EditAccount>();
+        // Pass the current account from UserContext
+        EditAccount editAccountForm = new EditAccount(_userContext.CurrentAccount, _repo);
         editAccountForm.Show();
         this.Hide();
     }
@@ -79,7 +85,8 @@ public partial class BookList : Form
             btn.Click += (s, e) =>
             {
                 int bookId = (int)((Button)s).Tag;
-                Reviews reviewsForm = new Reviews(_context, bookId);
+                var context = Program.AppServices.GetRequiredService<AppDbContext>();
+                Reviews reviewsForm = new Reviews(context, bookId);
                 reviewsForm.Show();
                 this.Hide();
             };
