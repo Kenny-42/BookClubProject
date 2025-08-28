@@ -42,6 +42,7 @@
             btnSaveChanges = new Button();
             lblPassword = new Label();
             txtPassword = new TextBox();
+            btnDeleteAccount = new Button();
             SuspendLayout();
             // 
             // btnLogout
@@ -164,11 +165,23 @@
             txtPassword.Size = new Size(329, 27);
             txtPassword.TabIndex = 18;
             // 
+            // btnDeleteAccount
+            // 
+            btnDeleteAccount.ForeColor = Color.Firebrick;
+            btnDeleteAccount.Location = new Point(324, 389);
+            btnDeleteAccount.Name = "btnDeleteAccount";
+            btnDeleteAccount.Size = new Size(147, 29);
+            btnDeleteAccount.TabIndex = 19;
+            btnDeleteAccount.Text = "Delete Account";
+            btnDeleteAccount.UseVisualStyleBackColor = true;
+            btnDeleteAccount.Click += btnDeleteAccount_Click;
+            // 
             // EditAccount
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnDeleteAccount);
             Controls.Add(txtPassword);
             Controls.Add(lblPassword);
             Controls.Add(btnSaveChanges);
@@ -205,5 +218,6 @@
         private Button btnSaveChanges;
         private Label lblPassword;
         private TextBox txtPassword;
+        private Button btnDeleteAccount;
     }
 }

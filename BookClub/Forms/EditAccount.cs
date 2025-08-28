@@ -27,5 +27,10 @@ namespace BookClub.Forms
             bookListForm.Show();
             this.Hide();
         }
+
+        private void btnDeleteAccount_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
