@@ -29,6 +29,13 @@ public partial class BookList : Form
         this.Hide();
     }
 
+    private void btnEditAccount_Click(object sender, EventArgs e)
+    {
+        EditAccount editAccountForm = Program.AppServices.GetRequiredService<EditAccount>();
+        editAccountForm.Show();
+        this.Hide();
+    }
+
     private void PopulateBookList()
     {
         pnlBookList.Controls.Clear();

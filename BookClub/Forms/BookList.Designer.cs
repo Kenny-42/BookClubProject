@@ -32,13 +32,14 @@ partial class BookList
         btnAddBook = new Button();
         lblBookList = new Label();
         pnlBookList = new Panel();
+        btnEditAccount = new Button();
         SuspendLayout();
         // 
         // btnLogout
         // 
         btnLogout.Location = new Point(12, 12);
         btnLogout.Name = "btnLogout";
-        btnLogout.Size = new Size(130, 52);
+        btnLogout.Size = new Size(130, 36);
         btnLogout.TabIndex = 0;
         btnLogout.Text = "Logout";
         btnLogout.UseVisualStyleBackColor = true;
@@ -72,11 +73,22 @@ partial class BookList
         pnlBookList.Size = new Size(537, 247);
         pnlBookList.TabIndex = 3;
         // 
+        // btnEditAccount
+        // 
+        btnEditAccount.Location = new Point(12, 54);
+        btnEditAccount.Name = "btnEditAccount";
+        btnEditAccount.Size = new Size(130, 36);
+        btnEditAccount.TabIndex = 6;
+        btnEditAccount.Text = "Edit Account";
+        btnEditAccount.UseVisualStyleBackColor = true;
+        btnEditAccount.Click += btnEditAccount_Click;
+        // 
         // BookList
         // 
         AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(800, 450);
+        Controls.Add(btnEditAccount);
         Controls.Add(pnlBookList);
         Controls.Add(lblBookList);
         Controls.Add(btnAddBook);
@@ -93,4 +105,5 @@ partial class BookList
     private Button btnAddBook;
     private Label lblBookList;
     private Panel pnlBookList;
+    private Button btnEditAccount;
 }
