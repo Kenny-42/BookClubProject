@@ -61,8 +61,8 @@ public class AccountsRepository
 
         if (!isValid)
         {
-            var errors = string.Join("; ", validationResults.Select(r => r.ErrorMessage));
-            MessageBox.Show($"AccountUpdateDTO validation failed:\n{errors}");
+            // Validation failed; optionally log errors or handle as needed
+            return false;
         }
 
         var account = _context.accounts.Find(id);
