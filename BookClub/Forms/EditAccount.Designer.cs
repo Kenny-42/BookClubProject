@@ -39,8 +39,9 @@
             txtLastName = new TextBox();
             txtUsername = new TextBox();
             txtEmail = new TextBox();
-            btnResetPassword = new Button();
             btnSaveChanges = new Button();
+            lblPassword = new Label();
+            txtPassword = new TextBox();
             SuspendLayout();
             // 
             // btnLogout
@@ -94,7 +95,7 @@
             // lblUsername
             // 
             lblUsername.AutoSize = true;
-            lblUsername.Location = new Point(175, 180);
+            lblUsername.Location = new Point(175, 213);
             lblUsername.Name = "lblUsername";
             lblUsername.Size = new Size(78, 20);
             lblUsername.TabIndex = 9;
@@ -103,11 +104,11 @@
             // lblEmail
             // 
             lblEmail.AutoSize = true;
-            lblEmail.Location = new Point(207, 213);
+            lblEmail.Location = new Point(204, 180);
             lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(46, 20);
+            lblEmail.Size = new Size(49, 20);
             lblEmail.TabIndex = 10;
-            lblEmail.Text = "Email";
+            lblEmail.Text = "Email:";
             // 
             // txtFirstName
             // 
@@ -125,26 +126,17 @@
             // 
             // txtUsername
             // 
-            txtUsername.Location = new Point(259, 177);
+            txtUsername.Location = new Point(259, 210);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(329, 27);
             txtUsername.TabIndex = 13;
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(259, 210);
+            txtEmail.Location = new Point(259, 177);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(329, 27);
             txtEmail.TabIndex = 14;
-            // 
-            // btnResetPassword
-            // 
-            btnResetPassword.Location = new Point(296, 262);
-            btnResetPassword.Name = "btnResetPassword";
-            btnResetPassword.Size = new Size(210, 38);
-            btnResetPassword.TabIndex = 15;
-            btnResetPassword.Text = "Reset Password";
-            btnResetPassword.UseVisualStyleBackColor = true;
             // 
             // btnSaveChanges
             // 
@@ -156,13 +148,30 @@
             btnSaveChanges.Text = "Save Changes";
             btnSaveChanges.UseVisualStyleBackColor = true;
             // 
+            // lblPassword
+            // 
+            lblPassword.AutoSize = true;
+            lblPassword.Location = new Point(180, 246);
+            lblPassword.Name = "lblPassword";
+            lblPassword.Size = new Size(73, 20);
+            lblPassword.TabIndex = 17;
+            lblPassword.Text = "Password:";
+            // 
+            // txtPassword
+            // 
+            txtPassword.Location = new Point(259, 243);
+            txtPassword.Name = "txtPassword";
+            txtPassword.Size = new Size(329, 27);
+            txtPassword.TabIndex = 18;
+            // 
             // EditAccount
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(txtPassword);
+            Controls.Add(lblPassword);
             Controls.Add(btnSaveChanges);
-            Controls.Add(btnResetPassword);
             Controls.Add(txtEmail);
             Controls.Add(txtUsername);
             Controls.Add(txtLastName);
@@ -193,7 +202,8 @@
         private TextBox txtLastName;
         private TextBox txtUsername;
         private TextBox txtEmail;
-        private Button btnResetPassword;
         private Button btnSaveChanges;
+        private Label lblPassword;
+        private TextBox txtPassword;
     }
 }
