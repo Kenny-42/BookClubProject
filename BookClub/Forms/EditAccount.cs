@@ -54,6 +54,56 @@ namespace BookClub.Forms
                 }
             }
         }
+
+        private void btnSaveChanges_Click(object sender, EventArgs e)
+        {
+            var currentAccount = _userContext.CurrentAccount;
+
+            // Read textbox values
+            string firstName = txtFirstName.Text.Trim();
+            string lastName = txtLastName.Text.Trim();
+            string email = txtEmail.Text.Trim();
+            string username = txtUsername.Text.Trim();
+            string password = txtPassword.Text.Trim();
+
+            // Only update fields that are not blank and different from current value
+            var dto = new AccountUpdateDTO();
+            if (!string.IsNullOrEmpty(firstName) && firstName != currentAccount.FirstName)
+            {
+                dto.FirstName = firstName;
+            }
+            if (!string.IsNullOrEmpty(lastName) && lastName != currentAccount.LastName)
+            {
+                dto.LastName = lastName;
+            }
+            if (!string.IsNullOrEmpty(email) && email != currentAccount.Email)
+            {
+                dto.Email = email;
+            }
+            if (!string.IsNullOrEmpty(username) && username != currentAccount.Username)
+            {
+                dto.Username = username;
+            }
+            if (!string.IsNullOrEmpty(password) && password != currentAccount.Password)
+            {
+                dto.Password = password;
+            }
+
+            bool updated = _repo.Update(currentAccount.Id, dto);
+            if (updated)
+            {
+                // Update the UserContext with new values
+                if (dto.FirstName != null) currentAccount.FirstName = dto.FirstName;
+                if (dto.LastName != null) currentAccount.LastName = dto.LastName;
+                if (dto.Email != null) currentAccount.Email = dto.Email;
+                if (dto.Username != null) currentAccount.Username = dto.Username;
+                if (dto.Password != null) currentAccount.Password = dto.Password;
+                MessageBox.Show("Account updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Failed to update account.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
-    
