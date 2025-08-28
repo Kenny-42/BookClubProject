@@ -41,6 +41,7 @@ internal static class Program
                 services.AddTransient<DiscussionBoard>();
                 services.AddTransient<Reviews>();
 
+                // Register repositories
                 services.AddScoped<AccountsRepository>();
 
             })
