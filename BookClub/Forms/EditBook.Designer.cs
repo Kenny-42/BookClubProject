@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             txtDescription = new TextBox();
-            btnSubmit = new Button();
+            btnSaveChanges = new Button();
             txtISBN = new TextBox();
             txtAuthor = new TextBox();
             txtTitle = new TextBox();
@@ -51,14 +51,15 @@
             txtDescription.Size = new Size(350, 100);
             txtDescription.TabIndex = 17;
             // 
-            // btnSubmit
+            // btnSaveChanges
             // 
-            btnSubmit.Location = new Point(319, 361);
-            btnSubmit.Name = "btnSubmit";
-            btnSubmit.Size = new Size(148, 48);
-            btnSubmit.TabIndex = 16;
-            btnSubmit.Text = "Submit";
-            btnSubmit.UseVisualStyleBackColor = true;
+            btnSaveChanges.Location = new Point(319, 361);
+            btnSaveChanges.Name = "btnSaveChanges";
+            btnSaveChanges.Size = new Size(148, 48);
+            btnSaveChanges.TabIndex = 16;
+            btnSaveChanges.Text = "Save Changes";
+            btnSaveChanges.UseVisualStyleBackColor = true;
+            btnSaveChanges.Click += btnSaveChanges_Click;
             // 
             // txtISBN
             // 
@@ -160,7 +161,7 @@
             Controls.Add(lblAuthor);
             Controls.Add(lblTitle);
             Controls.Add(txtDescription);
-            Controls.Add(btnSubmit);
+            Controls.Add(btnSaveChanges);
             Controls.Add(txtISBN);
             Controls.Add(txtAuthor);
             Controls.Add(txtTitle);
@@ -176,7 +177,7 @@
         #endregion
 
         private TextBox txtDescription;
-        private Button btnSubmit;
+        private Button btnSaveChanges;
         private TextBox txtISBN;
         private TextBox txtAuthor;
         private TextBox txtTitle;
