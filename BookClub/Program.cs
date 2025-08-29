@@ -34,14 +34,22 @@ internal static class Program
                     options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
 
                 // Register forms for dependency injection
+                // Account related forms
                 services.AddTransient<Login>();
                 services.AddTransient<CreateAccount>();
                 services.AddTransient<ResetPassword>();
+                services.AddTransient<EditAccount>();
+
+                // Book related forms
                 services.AddTransient<BookList>();
                 services.AddTransient<AddBook>();
-                services.AddTransient<DiscussionBoard>();
+                services.AddTransient<EditBook>();
+
+                // Review related forms
                 services.AddTransient<Reviews>();
-                services.AddTransient<EditAccount>();
+
+                // Discussion board form
+                services.AddTransient<DiscussionBoard>();
 
                 // Register repositories
                 services.AddScoped<AccountsRepository>();
