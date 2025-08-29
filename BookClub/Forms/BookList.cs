@@ -11,15 +11,13 @@ public partial class BookList : Form
 {
     private AccountsRepository _repo;
     private BookRepository _bookRepo;
-    private UserContext _userContext;
     private Book? _selectedBook = null;
 
-    public BookList(UserContext userContext, AccountsRepository repo, BookRepository bookRepo)
+    public BookList(AccountsRepository repo, BookRepository bookRepo)
     {
         InitializeComponent();
         _repo = repo;
         _bookRepo = bookRepo;
-        _userContext = userContext;
         this.FormClosed += (s, args) => Application.Exit();
         PopulateBookList();
     }
@@ -40,8 +38,7 @@ public partial class BookList : Form
 
     private void btnEditAccount_Click(object sender, EventArgs e)
     {
-        // Pass the current account from UserContext
-        EditAccount editAccountForm = new EditAccount(_userContext, _repo);
+        EditAccount editAccountForm = Program.AppServices.GetRequiredService<EditAccount>();
         editAccountForm.Show();
         this.Hide();
     }
@@ -107,6 +104,8 @@ public partial class BookList : Form
         if (result == DialogResult.Yes)
         {
             _bookRepo.Delete(_selectedBook!.Id);
+            pnlBookList.Controls.Clear();
+            PopulateBookList();
         }
     }
 
