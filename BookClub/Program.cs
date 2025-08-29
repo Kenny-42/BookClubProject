@@ -1,6 +1,7 @@
 using BookClub.Data;
 using BookClub.Forms;
 using BookClub.Repositories;
+using BookClub.Resources;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -48,6 +49,9 @@ internal static class Program
 
                 // Register current user (stores account Id)
                 services.AddSingleton<UserContext>();
+
+                // Register current book (stores book Id)
+                services.AddSingleton<BookContext>();
 
             })
             .Build();
