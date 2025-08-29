@@ -10,20 +10,22 @@ namespace BookClub.Forms
 {
     public partial class EditReview : Form
     {
+        private readonly ReviewsRepository _reviewsRepo;
+        private readonly Review? _selectedReview;
         private StarSystemController starController;
         private int currentRating = 0;
-        private UserContext _userContext;
-        private BookContext _bookContext;
-        private ReviewsRepository _reviewsRepo;
-        private Review _currentReview;
 
-        public EditReview(UserContext userContext, BookContext bookContext, ReviewsRepository reviewsRepo, Review currentReview)
+        public EditReview(ReviewsRepository reviewsRepo)
         {
             InitializeComponent();
-            _userContext = userContext;
-            _bookContext = bookContext;
             _reviewsRepo = reviewsRepo;
-            _currentReview = currentReview;
+
+            var reviewContext = Program.AppServices.GetRequiredService<ReviewContext>();
+            _selectedReview = reviewContext.CurrentReview;
+
+            // Set text to current review comment
+            txtReview.Text = _selectedReview.Comment;
+            txtReview.PlaceholderText = _selectedReview.Comment;
 
             // Initialize the star rating system using StarSystemController
             starController = new StarSystemController(
@@ -31,11 +33,11 @@ namespace BookClub.Forms
                 Properties.Resources.star_filled,
                 Properties.Resources.star_empty
             );
+            starController.SetRating(_selectedReview.Rating);
             starController.RatingChanged += (rating) => { currentRating = rating; };
+            currentRating = _selectedReview.Rating;
 
-            // Populate fields with current review data
-            txtReview.PlaceholderText = _currentReview.Comment;
-            starController.SetRating(_currentReview.Rating);
+            this.FormClosed += (s, args) => Application.Exit();
         }
 
         private bool ValidateInputs(string reviewMessage, int rating, out string error)
@@ -72,31 +74,29 @@ namespace BookClub.Forms
                 return;
             }
 
-            // Only update fields that are not blank and different from current value
-            var dto = new ReviewUpdateDTO();
-            bool anyChange = false;
-            if (!string.IsNullOrEmpty(reviewMessage) && reviewMessage != _currentReview.Comment)
+            // Always set both fields in the DTO
+            var dto = new ReviewUpdateDTO
             {
-                dto.Comment = reviewMessage;
-                anyChange = true;
-            }
-            if (rating != _currentReview.Rating)
-            {
-                dto.Rating = rating;
-                anyChange = true;
-            }
+                Comment = reviewMessage,
+                Rating = rating
+            };
 
-            bool updated = false;
+            // Only update if something actually changed
+            bool anyChange = (reviewMessage != _selectedReview.Comment) || (rating != _selectedReview.Rating);
+
             if (anyChange)
             {
-                updated = _reviewsRepo.Update(_currentReview.Id, dto);
-            }
-
-            if (updated)
-            {
-                MessageBox.Show("Review updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                _currentReview.Comment = reviewMessage;
-                _currentReview.Rating = rating;
+                bool updated = _reviewsRepo.Update(_selectedReview.Id, dto);
+                if (updated)
+                {
+                    MessageBox.Show("Review updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _selectedReview.Comment = reviewMessage;
+                    _selectedReview.Rating = rating;
+                }
+                else
+                {
+                    MessageBox.Show("Failed to update review in the database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
@@ -104,7 +104,7 @@ namespace BookClub.Forms
             }
 
             // Set placeholder text to current review comment
-            txtReview.PlaceholderText = _currentReview.Comment;
+            txtReview.PlaceholderText = _selectedReview.Comment;
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
@@ -116,7 +116,7 @@ namespace BookClub.Forms
 
         private void btnReviews_Click(object sender, EventArgs e)
         {
-            Reviews reviewsForm = Program.AppServices.GetRequiredService<Reviews>();
+            var reviewsForm = Program.AppServices.GetRequiredService<Reviews>();
             reviewsForm.Show();
             this.Hide();
         }
@@ -131,7 +131,7 @@ namespace BookClub.Forms
             );
             if (result == DialogResult.Yes)
             {
-                bool deleted = _reviewsRepo.Delete(_currentReview.Id);
+                bool deleted = _reviewsRepo.Delete(_selectedReview.Id);
                 if (deleted)
                 {
                     MessageBox.Show("Review deleted successfully.", "Review Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);

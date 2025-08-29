@@ -138,6 +138,7 @@
             btnDeleteReview.TabIndex = 26;
             btnDeleteReview.Text = "Delete Review";
             btnDeleteReview.UseVisualStyleBackColor = true;
+            btnDeleteReview.Click += new System.EventHandler(this.btnDeleteReview_Click);
             // 
             // EditReview
             // 
