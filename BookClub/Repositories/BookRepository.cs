@@ -21,7 +21,7 @@ public class BookRepository
         if (book.Id != 0)
             throw new ArgumentException("Book ID must be 0 for new books. It will be auto-generated.", nameof(book.Id));
 
-        _context.books.Add(book);
+        _context.Books.Add(book);
 
         return _context.SaveChanges() > 0;
     }
@@ -31,12 +31,12 @@ public class BookRepository
         if(predicate == null)
             throw new ArgumentNullException(nameof(predicate), "Predicate cannot be null");
 
-        return _context.books.FirstOrDefault(predicate);
+        return _context.Books.FirstOrDefault(predicate);
     }
 
     public IEnumerable<Book> GetAll()
     {
-        return _context.books.ToList();
+        return _context.Books.ToList();
     }
 
     public bool Update(int bookId, BookUpdateDTO dto)
@@ -52,7 +52,7 @@ public class BookRepository
             MessageBox.Show($"BookUpdateDTO validation failed:\n{errors}");
         }
 
-        var book = _context.books.Find(bookId);
+        var book = _context.Books.Find(bookId);
         if (book == null) return false;
 
         book.Title = dto.Title ?? book.Title;
@@ -65,10 +65,10 @@ public class BookRepository
 
     public bool Delete(int bookId)
     {
-        var book = _context.books.Find(bookId);
+        var book = _context.Books.Find(bookId);
         if (book != null)
         {
-            _context.books.Remove(book);
+            _context.Books.Remove(book);
             return _context.SaveChanges() > 0;
         }
         return false;
