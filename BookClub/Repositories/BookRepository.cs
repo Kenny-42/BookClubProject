@@ -113,7 +113,7 @@ public class BookRepository
         }
       
         // Find the existing book by its ID
-        var book = _context.books.Find(bookId);
+        var book = _context.Books.Find(bookId);
       
         if (book == null) return false;
 
