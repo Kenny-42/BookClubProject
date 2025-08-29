@@ -8,12 +8,14 @@ namespace BookClub.Forms;
 
 public partial class DiscussionBoard : Form
 {
-    
+    private readonly DiscussionsRepository _discussionsRepo;
     private Book? _selectedBook;
 
-    public DiscussionBoard(AppDbContext context)
+    public DiscussionBoard(DiscussionsRepository discussionsRepo)
     {
         InitializeComponent();
+
+        _discussionsRepo = discussionsRepo;
 
         _selectedBook = Program.AppServices.GetRequiredService<BookContext>().CurrentBook;
 
@@ -57,12 +59,10 @@ public partial class DiscussionBoard : Form
         // Clear previous controls
         pnlDiscussionBoard.Controls.Clear();
 
-        // Get repository services
-        var discussionsRepo = Program.AppServices.GetRequiredService<DiscussionsRepository>();
         var accountsRepo = Program.AppServices.GetRequiredService<AccountsRepository>();
 
         // Fetch discussions for this book
-        var discussions = discussionsRepo.GetAll()
+        var discussions = _discussionsRepo.GetAll()
             .Where(d => d.BookId == _selectedBook.Id)
             .OrderBy(d => d.PostedAt)
             .ToList();
@@ -117,5 +117,32 @@ public partial class DiscussionBoard : Form
 
             y += groupBox.Height + spacing;
         }
+    }
+
+    private void btnSubmit_Click(object sender, EventArgs e)
+    {
+        if(string.IsNullOrWhiteSpace(txtDiscussionPost.Text))
+        {
+            MessageBox.Show("Please enter a comment before submitting.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+
+        var userContext = Program.AppServices.GetRequiredService<UserContext>();
+        
+        Discussion newDiscussion = new Discussion
+        {
+            BookId = _selectedBook.Id,
+            AccountId = userContext.CurrentAccount.Id,
+            Comment = txtDiscussionPost.Text.Trim(),
+            //PostedAt = DateTime.Now
+        };
+
+        _discussionsRepo.Add(newDiscussion);
+
+        // Clear input and refresh panel
+        txtDiscussionPost.Text = string.Empty;
+
+        pnlDiscussionBoard.Controls.Clear();
+        PopulateDiscussionsPanel();
     }
 }
