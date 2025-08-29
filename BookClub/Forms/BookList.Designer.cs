@@ -33,13 +33,17 @@ partial class BookList
         lblBookList = new Label();
         pnlBookList = new Panel();
         btnEditAccount = new Button();
+        btnDeleteBook = new Button();
+        btnEditBook = new Button();
+        btnAddReview = new Button();
         SuspendLayout();
         // 
         // btnLogout
         // 
-        btnLogout.Location = new Point(12, 12);
+        btnLogout.Location = new Point(10, 9);
+        btnLogout.Margin = new Padding(3, 2, 3, 2);
         btnLogout.Name = "btnLogout";
-        btnLogout.Size = new Size(130, 36);
+        btnLogout.Size = new Size(114, 27);
         btnLogout.TabIndex = 0;
         btnLogout.Text = "Logout";
         btnLogout.UseVisualStyleBackColor = true;
@@ -47,10 +51,11 @@ partial class BookList
         // 
         // btnAddBook
         // 
-        btnAddBook.Location = new Point(650, 12);
+        btnAddBook.Location = new Point(113, 288);
+        btnAddBook.Margin = new Padding(3, 2, 3, 2);
         btnAddBook.Name = "btnAddBook";
-        btnAddBook.Size = new Size(138, 52);
-        btnAddBook.TabIndex = 1;
+        btnAddBook.Size = new Size(110, 39);
+        btnAddBook.TabIndex = 2;
         btnAddBook.Text = "Add Book";
         btnAddBook.UseVisualStyleBackColor = true;
         btnAddBook.Click += btnAddBook_Click;
@@ -59,40 +64,82 @@ partial class BookList
         // 
         lblBookList.AutoSize = true;
         lblBookList.Font = new Font("Segoe UI", 20F);
-        lblBookList.Location = new Point(315, 40);
+        lblBookList.Location = new Point(276, 30);
         lblBookList.Name = "lblBookList";
-        lblBookList.Size = new Size(155, 46);
+        lblBookList.Size = new Size(124, 37);
         lblBookList.TabIndex = 2;
         lblBookList.Text = "Book List";
         // 
         // pnlBookList
         // 
         pnlBookList.AutoScroll = true;
-        pnlBookList.Location = new Point(129, 121);
+        pnlBookList.Location = new Point(113, 91);
+        pnlBookList.Margin = new Padding(3, 2, 3, 2);
         pnlBookList.Name = "pnlBookList";
-        pnlBookList.Size = new Size(537, 247);
-        pnlBookList.TabIndex = 3;
+        pnlBookList.Size = new Size(470, 185);
+        pnlBookList.TabIndex = 6;
         // 
         // btnEditAccount
         // 
-        btnEditAccount.Location = new Point(12, 54);
+        btnEditAccount.Location = new Point(10, 40);
+        btnEditAccount.Margin = new Padding(3, 2, 3, 2);
         btnEditAccount.Name = "btnEditAccount";
-        btnEditAccount.Size = new Size(130, 36);
-        btnEditAccount.TabIndex = 6;
+        btnEditAccount.Size = new Size(114, 27);
+        btnEditAccount.TabIndex = 1;
         btnEditAccount.Text = "Edit Account";
         btnEditAccount.UseVisualStyleBackColor = true;
         btnEditAccount.Click += btnEditAccount_Click;
         // 
+        // btnDeleteBook
+        // 
+        btnDeleteBook.Enabled = false;
+        btnDeleteBook.Location = new Point(353, 288);
+        btnDeleteBook.Margin = new Padding(3, 2, 3, 2);
+        btnDeleteBook.Name = "btnDeleteBook";
+        btnDeleteBook.Size = new Size(110, 39);
+        btnDeleteBook.TabIndex = 4;
+        btnDeleteBook.Text = "Delete Book";
+        btnDeleteBook.UseVisualStyleBackColor = true;
+        btnDeleteBook.Click += btnDeleteBook_Click;
+        // 
+        // btnEditBook
+        // 
+        btnEditBook.Enabled = false;
+        btnEditBook.Location = new Point(233, 288);
+        btnEditBook.Margin = new Padding(3, 2, 3, 2);
+        btnEditBook.Name = "btnEditBook";
+        btnEditBook.Size = new Size(110, 39);
+        btnEditBook.TabIndex = 3;
+        btnEditBook.Text = "Edit Book";
+        btnEditBook.UseVisualStyleBackColor = true;
+        btnEditBook.Click += btnEditBook_Click;
+        // 
+        // btnAddReview
+        // 
+        btnAddReview.Enabled = false;
+        btnAddReview.Location = new Point(473, 288);
+        btnAddReview.Margin = new Padding(3, 2, 3, 2);
+        btnAddReview.Name = "btnAddReview";
+        btnAddReview.Size = new Size(110, 39);
+        btnAddReview.TabIndex = 5;
+        btnAddReview.Text = "Add Review";
+        btnAddReview.UseVisualStyleBackColor = true;
+        btnAddReview.Click += btnReviews_Click;
+        // 
         // BookList
         // 
-        AutoScaleDimensions = new SizeF(8F, 20F);
+        AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(800, 450);
+        ClientSize = new Size(700, 338);
+        Controls.Add(btnAddReview);
+        Controls.Add(btnDeleteBook);
+        Controls.Add(btnEditBook);
         Controls.Add(btnEditAccount);
         Controls.Add(pnlBookList);
         Controls.Add(lblBookList);
         Controls.Add(btnAddBook);
         Controls.Add(btnLogout);
+        Margin = new Padding(3, 2, 3, 2);
         Name = "BookList";
         Text = "Book List";
         ResumeLayout(false);
@@ -106,4 +153,7 @@ partial class BookList
     private Label lblBookList;
     private Panel pnlBookList;
     private Button btnEditAccount;
+    private Button btnDeleteBook;
+    private Button btnEditBook;
+    private Button btnAddReview;
 }

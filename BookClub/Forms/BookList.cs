@@ -12,6 +12,7 @@ public partial class BookList : Form
     private AccountsRepository _repo;
     private BookRepository _bookRepo;
     private UserContext _userContext;
+    private Book? _selectedBook = null;
 
     public BookList(UserContext userContext, AccountsRepository repo, BookRepository bookRepo)
     {
@@ -73,15 +74,38 @@ public partial class BookList : Form
             btn.Click += (s, e) =>
             {
                 var clickedBook = (Book)((Button)s).Tag;
-                var bookContext = Program.AppServices.GetRequiredService<BookContext>();
-                bookContext.CurrentBook = clickedBook;
+                _selectedBook = clickedBook;
 
-                Reviews reviewsForm = Program.AppServices.GetRequiredService<Reviews>();
-                reviewsForm.Show();
-                this.Hide();
+                btnEditBook.Enabled = true;
+                btnDeleteBook.Enabled = true;
+                btnAddReview.Enabled = true;
             };
 
             pnlBookList.Controls.Add(btn);
         }
+    }
+
+    private void btnEditBook_Click(object sender, EventArgs e)
+    {
+        // TODO: Implement edit functionality
+        MessageBox.Show(_selectedBook?.Title ?? "No book selected");
+    }
+
+    private void btnDeleteBook_Click(object sender, EventArgs e)
+    {
+        // TODO: Implement delete functionality
+        MessageBox.Show(_selectedBook?.Title ?? "No book selected");
+    }
+
+    private void btnReviews_Click(object sender, EventArgs e)
+    {
+        // Set the current book in BookContext
+        var bookContext = Program.AppServices.GetRequiredService<BookContext>();
+        bookContext.CurrentBook = _selectedBook!;
+
+        // Open the Reviews form
+        Reviews reviewsForm = Program.AppServices.GetRequiredService<Reviews>();
+        reviewsForm.Show();
+        this.Hide();
     }
 }
