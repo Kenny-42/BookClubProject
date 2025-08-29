@@ -2,6 +2,7 @@
 using BookClub.Repositories;
 using BookClub.Resources;
 using BookClub.Models;
+using BookClub.Handlers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BookClub.Forms;
@@ -14,7 +15,7 @@ public partial class Reviews : Form
     private BookContext _bookContext;
     private Book _book;
 
-    private PictureBox[] stars;
+    private StarSystemController starController;
     private int currentRating = 0;
 
     public Reviews(UserContext userContext, AccountsRepository repo, BookRepository bookRepo, BookContext bookContext)
@@ -33,37 +34,13 @@ public partial class Reviews : Form
         LoadBookInfo();
         PopulateReviewsPanel();
 
-        stars = new PictureBox[] { pcbStar1, pcbStar2, pcbStar3, pcbStar4, pcbStar5 };
-        for (int i = 0; i < stars.Length; i++)
-        {
-            stars[i].Tag = i + 1;
-            stars[i].Image = Properties.Resources.star_empty;
-            stars[i].Cursor = Cursors.Hand;
-            stars[i].Click += Star_Click;
-        }
-    }
-
-    private void Star_Click(object sender, EventArgs e)
-    {
-        PictureBox clickedStar = sender as PictureBox;
-        int rating = (int)clickedStar.Tag;
-        currentRating = rating;
-        UpdateStarImages(rating);
-    }
-
-    private void UpdateStarImages(int rating)
-    {
-        for (int i = 0; i < stars.Length; i++)
-        {
-            if (i < rating)
-            {
-                stars[i].Image = Properties.Resources.star_filled;
-            }
-            else
-            {
-                stars[i].Image = Properties.Resources.star_empty;
-            }
-        }
+        // Initialize star rating system
+        starController = new StarSystemController(
+            new PictureBox[] { pcbStar1, pcbStar2, pcbStar3, pcbStar4, pcbStar5 },
+            Properties.Resources.star_filled,
+            Properties.Resources.star_empty
+        );
+        starController.RatingChanged += (rating) => { currentRating = rating; };
     }
 
     private void btnLogout_Click(object sender, EventArgs e)
@@ -211,7 +188,7 @@ public partial class Reviews : Form
     {
         // Read the review message from the textbox and the selected star rating
         string reviewMessage = txtReview.Text.Trim();
-        int rating = currentRating;
+        int rating = starController.CurrentRating;
 
         // Validate inputs
         string error;
@@ -239,8 +216,7 @@ public partial class Reviews : Form
         {
             // If successful, clear the input fields and reset the star rating
             txtReview.Text = string.Empty;
-            currentRating = 0;
-            UpdateStarImages(0);
+            starController.Reset();
 
             // Refresh the reviews panel to show the new review
             PopulateReviewsPanel();
