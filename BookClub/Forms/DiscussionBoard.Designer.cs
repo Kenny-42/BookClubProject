@@ -37,9 +37,11 @@ partial class DiscussionBoard
         lblDescription = new Label();
         pnlDiscussionBoard = new Panel();
         txtDiscussionPost = new TextBox();
-        btnSubmit = new Button();
+        btnSubmitPost = new Button();
         lblBookTitle = new Label();
         lblDiscussionBoard = new Label();
+        btnEditPost = new Button();
+        btnDeletePost = new Button();
         ((System.ComponentModel.ISupportInitialize)pcbBookThumbnail).BeginInit();
         SuspendLayout();
         // 
@@ -49,7 +51,7 @@ partial class DiscussionBoard
         btnLogout.Margin = new Padding(3, 2, 3, 2);
         btnLogout.Name = "btnLogout";
         btnLogout.Size = new Size(114, 27);
-        btnLogout.TabIndex = 3;
+        btnLogout.TabIndex = 0;
         btnLogout.Text = "Logout";
         btnLogout.UseVisualStyleBackColor = true;
         btnLogout.Click += btnLogout_Click;
@@ -60,7 +62,7 @@ partial class DiscussionBoard
         btnReviews.Margin = new Padding(3, 2, 3, 2);
         btnReviews.Name = "btnReviews";
         btnReviews.Size = new Size(235, 27);
-        btnReviews.TabIndex = 5;
+        btnReviews.TabIndex = 6;
         btnReviews.Text = "Back to Reviews";
         btnReviews.UseVisualStyleBackColor = true;
         btnReviews.Click += btnReviews_Click;
@@ -71,7 +73,7 @@ partial class DiscussionBoard
         btnBookList.Margin = new Padding(3, 2, 3, 2);
         btnBookList.Name = "btnBookList";
         btnBookList.Size = new Size(114, 27);
-        btnBookList.TabIndex = 6;
+        btnBookList.TabIndex = 1;
         btnBookList.Text = "Book List";
         btnBookList.UseVisualStyleBackColor = true;
         btnBookList.Click += btnBookList_Click;
@@ -132,18 +134,18 @@ partial class DiscussionBoard
         txtDiscussionPost.Name = "txtDiscussionPost";
         txtDiscussionPost.PlaceholderText = "Discussion Post";
         txtDiscussionPost.Size = new Size(425, 52);
-        txtDiscussionPost.TabIndex = 13;
+        txtDiscussionPost.TabIndex = 2;
         // 
-        // btnSubmit
+        // btnSubmitPost
         // 
-        btnSubmit.Location = new Point(354, 293);
-        btnSubmit.Margin = new Padding(3, 2, 3, 2);
-        btnSubmit.Name = "btnSubmit";
-        btnSubmit.Size = new Size(113, 22);
-        btnSubmit.TabIndex = 14;
-        btnSubmit.Text = "Submit";
-        btnSubmit.UseVisualStyleBackColor = true;
-        btnSubmit.Click += btnSubmit_Click;
+        btnSubmitPost.Location = new Point(354, 293);
+        btnSubmitPost.Margin = new Padding(3, 2, 3, 2);
+        btnSubmitPost.Name = "btnSubmitPost";
+        btnSubmitPost.Size = new Size(113, 22);
+        btnSubmitPost.TabIndex = 4;
+        btnSubmitPost.Text = "Submit";
+        btnSubmitPost.UseVisualStyleBackColor = true;
+        btnSubmitPost.Click += btnSubmit_Click;
         // 
         // lblBookTitle
         // 
@@ -165,14 +167,38 @@ partial class DiscussionBoard
         lblDiscussionBoard.TabIndex = 16;
         lblDiscussionBoard.Text = "Discussion Board";
         // 
+        // btnEditPost
+        // 
+        btnEditPost.Location = new Point(235, 293);
+        btnEditPost.Margin = new Padding(3, 2, 3, 2);
+        btnEditPost.Name = "btnEditPost";
+        btnEditPost.Size = new Size(113, 22);
+        btnEditPost.TabIndex = 3;
+        btnEditPost.Text = "Edit";
+        btnEditPost.UseVisualStyleBackColor = true;
+        btnEditPost.Click += btnEditPost_Click;
+        // 
+        // btnDeletePost
+        // 
+        btnDeletePost.Location = new Point(473, 293);
+        btnDeletePost.Margin = new Padding(3, 2, 3, 2);
+        btnDeletePost.Name = "btnDeletePost";
+        btnDeletePost.Size = new Size(113, 22);
+        btnDeletePost.TabIndex = 5;
+        btnDeletePost.Text = "Delete";
+        btnDeletePost.UseVisualStyleBackColor = true;
+        btnDeletePost.Click += btnDeletePost_Click;
+        // 
         // DiscussionBoard
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(700, 338);
+        Controls.Add(btnDeletePost);
+        Controls.Add(btnEditPost);
         Controls.Add(lblDiscussionBoard);
         Controls.Add(lblBookTitle);
-        Controls.Add(btnSubmit);
+        Controls.Add(btnSubmitPost);
         Controls.Add(txtDiscussionPost);
         Controls.Add(pnlDiscussionBoard);
         Controls.Add(lblDescription);
@@ -201,7 +227,9 @@ partial class DiscussionBoard
     private Label lblDescription;
     private Panel pnlDiscussionBoard;
     private TextBox txtDiscussionPost;
-    private Button btnSubmit;
+    private Button btnSubmitPost;
     private Label lblBookTitle;
     private Label lblDiscussionBoard;
+    private Button btnEditPost;
+    private Button btnDeletePost;
 }
