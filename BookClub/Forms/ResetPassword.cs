@@ -5,8 +5,17 @@ using System.Text.RegularExpressions;
 
 namespace BookClub.Forms;
 
+/// <summary>
+/// Represents a form that allows users to reset their account password.
+/// </summary>
+/// <remarks>This form provides functionality for users to reset their password by verifying their email and
+/// username. It validates user input, ensures password complexity, and updates the account's password in the
+/// repository. If the reset is successful, the user is redirected to the login form.</remarks>
 public partial class ResetPassword : Form
 {
+    /// <summary>
+    /// Provides access to account data for performing operations such as retrieving and updating accounts.
+    /// </summary>
     private AccountsRepository _repo;
     public ResetPassword(AccountsRepository repo)
     {
@@ -84,15 +93,19 @@ public partial class ResetPassword : Form
 
         account!.Password = newPassword;
 
+        // Update the account's password in the repository
         AccountUpdateDTO dto = new()
         {
             Password = newPassword
         };
 
+        // Performs partial update
         _repo.Update(account.Id, dto);
 
+        // Confirmation message
         MessageBox.Show("Password reset successfully. Please log in with your new password.");
 
+        // Navigate back to Login
         Login loginForm = Program.AppServices.GetRequiredService<Login>();
         loginForm.Show();
         this.Hide();
