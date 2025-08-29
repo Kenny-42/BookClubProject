@@ -57,6 +57,89 @@ namespace BookClub.Forms
             }
         }
 
+        private bool ValidateInputs(string firstName, string lastName, string email, string username, string password, out string error)
+        {
+            error = string.Empty;
+            // Trim all inputs
+            firstName = firstName.Trim();
+            lastName = lastName.Trim();
+            email = email.Trim();
+            username = username.Trim();
+            password = password.Trim();
+
+            // First and last names must be 50 or fewer characters
+            if (!string.IsNullOrEmpty(firstName) && firstName.Length > 50)
+            {
+                error = "First name must be 50 characters or fewer.";
+                return false;
+            }
+            if (!string.IsNullOrEmpty(lastName) && lastName.Length > 50)
+            {
+                error = "Last name must be 50 characters or fewer.";
+                return false;
+            }
+
+            // Email must be a valid email format
+            if (!string.IsNullOrEmpty(email))
+            {
+                try
+                {
+                    var addr = new System.Net.Mail.MailAddress(email);
+                    if (addr.Address != email)
+                    {
+                        error = "Invalid email format.";
+                        return false;
+                    }
+                }
+                catch
+                {
+                    error = "Invalid email format.";
+                    return false;
+                }
+            }
+
+            // Username must be 2-20 characters, only letters/numbers/underscores, start and end with a letter/number
+            // and be unique (no other account uses it)
+            if (!string.IsNullOrEmpty(username))
+            {
+                if (username.Length < 2 || username.Length > 20)
+                {
+                    error = "Username must be between 2 and 20 characters.";
+                    return false;
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(username, "^[a-zA-Z0-9][a-zA-Z0-9_]*[a-zA-Z0-9]$"))
+                {
+                    error = "Username must only contain letters, numbers, underscores, and start/end with a letter or number.";
+                    return false;
+                }
+                
+                var currentAccount = _userContext.CurrentAccount;
+                var existing = _repo.GetByKey(a => a.Username == username);
+                if (existing != null && existing.Id != currentAccount.Id)
+                {
+                    error = "Username is already taken.";
+                    return false;
+                }
+            }
+
+            // Password must be between 3-32 characters and only contain letters, numbers,
+            // and special characters
+            if (!string.IsNullOrEmpty(password))
+            {
+                if (password.Length < 3 || password.Length > 32)
+                {
+                    error = "Password must be between 3 and 32 characters.";
+                    return false;
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(password, @"^[\w\d\p{P}\p{S}]+$"))
+                {
+                    error = "Password contains invalid characters.";
+                    return false;
+                }
+            }
+            return true;
+        }
+
         private void btnSaveChanges_Click(object sender, EventArgs e)
         {
             var currentAccount = _userContext.CurrentAccount;
@@ -67,6 +150,15 @@ namespace BookClub.Forms
             string email = txtEmail.Text.Trim();
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text.Trim();
+
+            // Validate inputs
+            string error;
+            if (!ValidateInputs(firstName, lastName, email, username, password, out error))
+            {
+                MessageBox.Show(error, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PopulateTextboxes(this, currentAccount);
+                return;
+            }
 
             // Only update fields that are not blank and different from current value
             var dto = new AccountUpdateDTO();
