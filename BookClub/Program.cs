@@ -47,6 +47,7 @@ internal static class Program
 
                 // Review related forms
                 services.AddTransient<Reviews>();
+                services.AddTransient<EditReview>();
 
                 // Discussion board form
                 services.AddTransient<DiscussionBoard>();
@@ -66,6 +67,9 @@ internal static class Program
 
                 // Register current discussion (stores discussion object)
                 services.AddSingleton<DiscussionContext>();
+
+                // Register current review (stores review object)
+                services.AddSingleton<ReviewContext>();
 
             })
             .Build();
