@@ -11,15 +11,13 @@ public partial class BookList : Form
 {
     private AccountsRepository _repo;
     private BookRepository _bookRepo;
-    private UserContext _userContext;
     private Book? _selectedBook = null;
 
-    public BookList(UserContext userContext, AccountsRepository repo, BookRepository bookRepo)
+    public BookList(AccountsRepository repo, BookRepository bookRepo)
     {
         InitializeComponent();
         _repo = repo;
         _bookRepo = bookRepo;
-        _userContext = userContext;
         this.FormClosed += (s, args) => Application.Exit();
         PopulateBookList();
     }
@@ -40,8 +38,7 @@ public partial class BookList : Form
 
     private void btnEditAccount_Click(object sender, EventArgs e)
     {
-        // Pass the current account from UserContext
-        EditAccount editAccountForm = new EditAccount(_userContext, _repo);
+        EditAccount editAccountForm = Program.AppServices.GetRequiredService<EditAccount>();
         editAccountForm.Show();
         this.Hide();
     }
@@ -87,14 +84,29 @@ public partial class BookList : Form
 
     private void btnEditBook_Click(object sender, EventArgs e)
     {
-        // TODO: Implement edit functionality
-        MessageBox.Show(_selectedBook?.Title ?? "No book selected");
+        // Navigate to EditBook form with the selected book
+        EditBook editBookForm = Program.AppServices.GetRequiredService<EditBook>();
+        editBookForm.Show();
+        this.Hide();
     }
 
     private void btnDeleteBook_Click(object sender, EventArgs e)
     {
         // TODO: Implement delete functionality
-        MessageBox.Show(_selectedBook?.Title ?? "No book selected");
+        var result = MessageBox.Show(
+            "Are you sure you want to delete this book?",
+            "Confirm Delete",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Warning
+        );
+
+        // If user confirmed, delete the book
+        if (result == DialogResult.Yes)
+        {
+            _bookRepo.Delete(_selectedBook!.Id);
+            pnlBookList.Controls.Clear();
+            PopulateBookList();
+        }
     }
 
     private void btnReviews_Click(object sender, EventArgs e)
