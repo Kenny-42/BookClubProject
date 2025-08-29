@@ -61,13 +61,6 @@ namespace BookClub.Forms
         {
             error = string.Empty;
 
-            // Trim all inputs
-            firstName = firstName.Trim();
-            lastName = lastName.Trim();
-            email = email.Trim();
-            username = username.Trim();
-            password = password.Trim();
-
             // First and last names must be 50 or fewer characters
             if (!string.IsNullOrEmpty(firstName) && firstName.Length > 50)
             {
