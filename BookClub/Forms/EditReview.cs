@@ -1,9 +1,10 @@
-﻿using System;
-using System.Windows.Forms;
-using BookClub.Handlers;
+﻿using BookClub.Handlers;
+using BookClub.Models;
 using BookClub.Repositories;
 using BookClub.Resources;
-using BookClub.Models;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Windows.Forms;
 
 namespace BookClub.Forms
 {
@@ -31,7 +32,7 @@ namespace BookClub.Forms
                 Properties.Resources.star_empty
             );
             starController.RatingChanged += (rating) => { currentRating = rating; };
-            
+
             // Populate fields with current review data
             txtReview.PlaceholderText = _currentReview.Comment;
             starController.SetRating(_currentReview.Rating);
@@ -104,6 +105,20 @@ namespace BookClub.Forms
 
             // Set placeholder text to current review comment
             txtReview.PlaceholderText = _currentReview.Comment;
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            var loginForm = Program.AppServices.GetRequiredService<Login>();
+            loginForm.Show();
+            this.Hide();
+        }
+
+        private void btnReviews_Click(object sender, EventArgs e)
+        {
+            Reviews reviewsForm = Program.AppServices.GetRequiredService<Reviews>();
+            reviewsForm.Show();
+            this.Hide();
         }
     }
 }

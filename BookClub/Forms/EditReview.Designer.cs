@@ -53,6 +53,7 @@
             btnReviews.TabIndex = 5;
             btnReviews.Text = "Reviews";
             btnReviews.UseVisualStyleBackColor = true;
+            btnReviews.Click += btnReviews_Click;
             // 
             // btnLogout
             // 
@@ -62,6 +63,7 @@
             btnLogout.TabIndex = 4;
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = true;
+            btnLogout.Click += btnLogout_Click;
             // 
             // pcbStar5
             // 
