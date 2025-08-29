@@ -38,3 +38,21 @@ public class Review
 
     public Review() { }
 }
+
+public class ReviewUpdateDTO
+{
+    [Required]
+    [Range(1, 5)]
+    public int? Rating { get; set; } // Rating out of 5
+    [Required]
+    [StringLength(2048, ErrorMessage = "Comment cannot be longer than 2048 characters.")]
+    public string? Comment { get; set; } = string.Empty;
+
+    public ReviewUpdateDTO(int rating, string comment)
+    {
+        Rating = rating;
+        Comment = comment;
+    }
+
+    public ReviewUpdateDTO() { }
+}
