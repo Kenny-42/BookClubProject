@@ -1,25 +1,36 @@
 ﻿using BookClub.Data;
+using BookClub.Repositories;
+using BookClub.Resources;
+using BookClub.Models;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BookClub.Forms;
 
 public partial class Reviews : Form
 {
-    private AppDbContext _context;
+    private AccountsRepository _repo;
+    private BookRepository _bookRepo;
+    private UserContext _userContext;
+    private BookContext _bookContext;
+    private Book _book;
+
     private PictureBox[] stars;
     private int currentRating = 0;
-    private int _bookId;
 
-    public Reviews(AppDbContext context, int bookId)
+    public Reviews(UserContext userContext, AccountsRepository repo, BookRepository bookRepo, BookContext bookContext)
     {
         InitializeComponent();
-        _context = context;
 
-        _bookId = bookId;
+        _repo = repo;
+        _bookRepo = bookRepo;
+        _userContext = userContext;
+        _bookContext = bookContext;
+
+        _book = _bookContext.CurrentBook;
 
         this.FormClosed += (s, args) => Application.Exit();
 
-        LoadBookInfo(_bookId);
+        LoadBookInfo();
 
         stars = new PictureBox[] { pcbStar1, pcbStar2, pcbStar3, pcbStar4, pcbStar5 };
         for (int i = 0; i < stars.Length; i++)
@@ -75,33 +86,21 @@ public partial class Reviews : Form
         this.Hide();
     }
 
-    private void LoadBookInfo(int bookId)
+    private void LoadBookInfo()
     {
-        string connectionString = "Server=localhost;Database=BookClub;Trusted_Connection=True;TrustServerCertificate=True;";
-        string query = "SELECT Title, Author, ISBN, BookDescription FROM Books WHERE BookId = @BookId";
-
-        using (var conn = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
-        using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(query, conn))
+        if (_book != null)
         {
-            cmd.Parameters.AddWithValue("@BookId", bookId);
-            conn.Open();
-            using (var reader = cmd.ExecuteReader())
-            {
-                if (reader.Read())
-                {
-                    lblBookTitle.Text = reader["Title"].ToString();
-                    lblAuthor.Text = "Author: " + reader["Author"].ToString();
-                    lblISBN.Text = "ISBN: " + reader["ISBN"].ToString();
-                    lblDescription.Text = reader["BookDescription"].ToString();
-                }
-                else
-                {
-                    lblBookTitle.Text = "Book Title";
-                    lblAuthor.Text = "Author";
-                    lblISBN.Text = "ISBN";
-                    lblDescription.Text = "Description";
-                }
-            }
+            lblBookTitle.Text = _book.Title;
+            lblAuthor.Text = "Author: " + _book.Author;
+            lblISBN.Text = "ISBN: " + _book.ISBN;
+            lblDescription.Text = _book.Description;
+        }
+        else
+        {
+            lblBookTitle.Text = "Book Title";
+            lblAuthor.Text = "Author";
+            lblISBN.Text = "ISBN";
+            lblDescription.Text = "Description";
         }
     }
 }
