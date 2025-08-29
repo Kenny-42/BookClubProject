@@ -192,7 +192,12 @@ public partial class DiscussionBoard : Form
 
     private void btnEditPost_Click(object sender, EventArgs e)
     {
-        MessageBox.Show($"Editing comment: {_selectedDiscussion.Comment}");
+        var discussionContext = Program.AppServices.GetRequiredService<DiscussionContext>();
+        discussionContext.CurrentDiscussion = _selectedDiscussion;
+
+        EditDiscussion editDiscussionForm = Program.AppServices.GetRequiredService<EditDiscussion>();
+        editDiscussionForm.Show();
+        this.Hide();
     }
 
     private void btnDeletePost_Click(object sender, EventArgs e)

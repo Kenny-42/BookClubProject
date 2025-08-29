@@ -53,27 +53,26 @@ public class DiscussionsRepository
      *  UPDATE Operations 
      */
 
-    //public bool Update(int id, ReviewUpdateDTO dto)
-    //{
-    //    var validationContext = new ValidationContext(dto);
-    //    var validationResults = new List<ValidationResult>();
+    public bool Update(int id, DiscussionUpdateDTO dto)
+    {
+        var validationContext = new ValidationContext(dto);
+        var validationResults = new List<ValidationResult>();
 
-    //    bool isValid = Validator.TryValidateObject(dto, validationContext, validationResults, true);
+        bool isValid = Validator.TryValidateObject(dto, validationContext, validationResults, true);
 
-    //    if (!isValid)
-    //    {
-    //        // Validation failed; optionally log errors or handle as needed
-    //        return false;
-    //    }
+        if (!isValid)
+        {
+            // Validation failed; optionally log errors or handle as needed
+            return false;
+        }
 
-    //    var discussion = _context.Reviews.Find(id);
-    //    if (discussion == null) return false;
+        var discussion = _context.Discussions.Find(id);
+        if (discussion == null) return false;
 
-    //    discussion.Rating = dto.Rating ?? discussion.Rating;
-    //    discussion.Comment = dto.Comment ?? review.Comment;
+        discussion.Comment = dto.Comment ?? discussion.Comment;
 
-    //    return _context.SaveChanges() > 0;
-    //}
+        return _context.SaveChanges() > 0;
+    }
 
     /*
      *  DELETE Operations 

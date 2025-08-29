@@ -50,6 +50,7 @@ internal static class Program
 
                 // Discussion board form
                 services.AddTransient<DiscussionBoard>();
+                services.AddTransient<EditDiscussion>();
 
                 // Register repositories
                 services.AddScoped<AccountsRepository>();
@@ -57,11 +58,14 @@ internal static class Program
                 services.AddScoped<ReviewsRepository>();
                 services.AddScoped<DiscussionsRepository>();
 
-                // Register current user (stores account Id)
+                // Register current user (stores account object)
                 services.AddSingleton<UserContext>();
 
-                // Register current book (stores book Id)
+                // Register current book (stores book object)
                 services.AddSingleton<BookContext>();
+
+                // Register current discussion (stores discussion object)
+                services.AddSingleton<DiscussionContext>();
 
             })
             .Build();
