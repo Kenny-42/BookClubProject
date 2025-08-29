@@ -40,6 +40,7 @@
             lblAuthor = new Label();
             lblISBN = new Label();
             lblDescription = new Label();
+            btnDeleteBook = new Button();
             SuspendLayout();
             // 
             // txtDescription
@@ -53,9 +54,9 @@
             // 
             // btnSaveChanges
             // 
-            btnSaveChanges.Location = new Point(319, 361);
+            btnSaveChanges.Location = new Point(310, 346);
             btnSaveChanges.Name = "btnSaveChanges";
-            btnSaveChanges.Size = new Size(148, 48);
+            btnSaveChanges.Size = new Size(162, 48);
             btnSaveChanges.TabIndex = 16;
             btnSaveChanges.Text = "Save Changes";
             btnSaveChanges.UseVisualStyleBackColor = true;
@@ -151,11 +152,23 @@
             lblDescription.TabIndex = 21;
             lblDescription.Text = "Description:";
             // 
+            // btnDeleteBook
+            // 
+            btnDeleteBook.ForeColor = Color.Firebrick;
+            btnDeleteBook.Location = new Point(334, 400);
+            btnDeleteBook.Name = "btnDeleteBook";
+            btnDeleteBook.Size = new Size(118, 29);
+            btnDeleteBook.TabIndex = 22;
+            btnDeleteBook.Text = "Delete Book";
+            btnDeleteBook.UseVisualStyleBackColor = true;
+            btnDeleteBook.Click += btnDeleteBook_Click;
+            // 
             // EditBook
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnDeleteBook);
             Controls.Add(lblDescription);
             Controls.Add(lblISBN);
             Controls.Add(lblAuthor);
@@ -188,5 +201,6 @@
         private Label lblAuthor;
         private Label lblISBN;
         private Label lblDescription;
+        private Button btnDeleteBook;
     }
 }
