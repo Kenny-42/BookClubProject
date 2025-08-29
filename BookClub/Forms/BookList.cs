@@ -169,7 +169,7 @@ public partial class BookList : Form
     {
         btnEditBook.Enabled = true;
         btnDeleteBook.Enabled = true;
-        btnAddReview.Enabled = true;
+        btnViewReviews.Enabled = true;
     }
 
     /// <summary>
@@ -181,6 +181,6 @@ public partial class BookList : Form
     {
         btnEditBook.Enabled = false;
         btnDeleteBook.Enabled = false;
-        btnAddReview.Enabled = false;
+        btnViewReviews.Enabled = false;
     }
 }
