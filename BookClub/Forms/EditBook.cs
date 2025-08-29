@@ -85,6 +85,35 @@ namespace BookClub.Forms
             PopulateTextboxes(this, currentBook);
         }
 
+        private void btnDeleteBook_Click(object sender, EventArgs e)
+        {
+            var currentBook = _bookContext.CurrentBook;
+            if (currentBook == null)
+            {
+                MessageBox.Show("No book selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            var result = MessageBox.Show("Are you sure you want to delete this book? This action cannot be undone.",
+                "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
+            {
+                String title = currentBook.Title;
+                bool deleted = _repo.Delete(currentBook.Id);
+                if (deleted)
+                {
+                    MessageBox.Show("The book: \"" + title + "\" has been deleted.", "Book Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _bookContext.CurrentBook = null;
+                    BookList bookListForm = Program.AppServices.GetRequiredService<BookList>();
+                    bookListForm.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("Failed to delete book. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
         public static void PopulateTextboxes(EditBook form, Book book)
         {
             form.txtTitle.Text = "";
