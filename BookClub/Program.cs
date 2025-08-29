@@ -54,6 +54,7 @@ internal static class Program
                 // Register repositories
                 services.AddScoped<AccountsRepository>();
                 services.AddScoped<BookRepository>();
+                services.AddScoped<ReviewsRepository>();
 
                 // Register current user (stores account Id)
                 services.AddSingleton<UserContext>();
