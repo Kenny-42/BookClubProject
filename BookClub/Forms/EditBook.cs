@@ -34,6 +34,33 @@ namespace BookClub.Forms
             this.Hide();
         }
 
+        private bool ValidateInputs(string description, string isbn, out string error)
+        {
+            error = string.Empty;
+
+            // Only validate non-blank fields
+            // No validation needed for title or author since their only requirement is to be non-blank
+
+            // Description cannot be longer than 1024 characters
+            if (!string.IsNullOrEmpty(description))
+            {
+                if (description.Length > 1024)
+                {
+                    error = "Description cannot be longer than 1024 characters.";
+                    return false;
+                }
+            }
+            if (!string.IsNullOrEmpty(isbn))
+            {
+                string isbnNoHyphens = isbn.Replace("-", "");
+                if (isbnNoHyphens.Length != 13)
+                {
+                    error = "ISBN must be exactly 13 characters long (excluding hyphens).\n";
+                }
+            }
+            return true;
+        }
+
         private void btnSaveChanges_Click(object sender, EventArgs e)
         {
             var currentBook = _bookContext.CurrentBook;
@@ -45,7 +72,13 @@ namespace BookClub.Forms
             string isbn = txtISBN.Text.Trim();
 
             // Validate inputs
-
+            string error;
+            if (!ValidateInputs(description, isbn, out error))
+            {
+                MessageBox.Show(error, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PopulateTextboxes(this, currentBook);
+                return;
+            }
 
             // Only update fields that are not blank and different from current value
             var dto = new BookUpdateDTO();
