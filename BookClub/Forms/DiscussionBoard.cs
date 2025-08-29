@@ -1,22 +1,24 @@
 ﻿using BookClub.Data;
+using BookClub.Models;
+using BookClub.Resources;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BookClub.Forms;
 
 public partial class DiscussionBoard : Form
 {
-    private AppDbContext _context;
-    private int _bookId;
+    
+    private Book? _selectedBook;
 
-    public DiscussionBoard(AppDbContext context, int bookId)
+    public DiscussionBoard(AppDbContext context)
     {
         InitializeComponent();
 
-        _bookId = bookId;
+        _selectedBook = Program.AppServices.GetRequiredService<BookContext>().CurrentBook;
 
         this.FormClosed += (s, args) => Application.Exit();
 
-        LoadBookInfo(_bookId);
+        LoadBookInfo();
     }
 
     private void btnLogout_Click(object sender, EventArgs e)
@@ -40,33 +42,38 @@ public partial class DiscussionBoard : Form
         this.Hide();
     }
 
-    private void LoadBookInfo(int bookId)
+    private void LoadBookInfo()
     {
-        string connectionString = "Server=localhost;Database=BookClub;Trusted_Connection=True;TrustServerCertificate=True;";
-        string query = "SELECT Title, Author, ISBN, BookDescription FROM Books WHERE BookId = @BookId";
+        //string connectionString = "Server=localhost;Database=BookClub;Trusted_Connection=True;TrustServerCertificate=True;";
+        //string query = "SELECT Title, Author, ISBN, BookDescription FROM Books WHERE BookId = @BookId";
 
-        using (var conn = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
-        using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(query, conn))
-        {
-            cmd.Parameters.AddWithValue("@BookId", bookId);
-            conn.Open();
-            using (var reader = cmd.ExecuteReader())
-            {
-                if (reader.Read())
-                {
-                    lblBookTitle.Text = reader["Title"].ToString();
-                    lblAuthor.Text = "Author: " + reader["Author"].ToString();
-                    lblISBN.Text = "ISBN: " + reader["ISBN"].ToString();
-                    lblDescription.Text = reader["BookDescription"].ToString();
-                }
-                else
-                {
-                    lblBookTitle.Text = "Book Title";
-                    lblAuthor.Text = "Author";
-                    lblISBN.Text = "ISBN";
-                    lblDescription.Text = "Description";
-                }
-            }
-        }
+        //using (var conn = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+        //using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(query, conn))
+        //{
+        //    cmd.Parameters.AddWithValue("@BookId", bookId);
+        //    conn.Open();
+        //    using (var reader = cmd.ExecuteReader())
+        //    {
+        //        if (reader.Read())
+        //        {
+        //            lblBookTitle.Text = reader["Title"].ToString();
+        //            lblAuthor.Text = "Author: " + reader["Author"].ToString();
+        //            lblISBN.Text = "ISBN: " + reader["ISBN"].ToString();
+        //            lblDescription.Text = reader["BookDescription"].ToString();
+        //        }
+        //        else
+        //        {
+        //            lblBookTitle.Text = "Book Title";
+        //            lblAuthor.Text = "Author";
+        //            lblISBN.Text = "ISBN";
+        //            lblDescription.Text = "Description";
+        //        }
+        //    }
+        //}
+
+        lblBookTitle.Text = _selectedBook?.Title ?? "Book Title";
+        lblAuthor.Text = "Author: " + (_selectedBook?.Author ?? "Author");
+        lblISBN.Text = "ISBN: " + (_selectedBook?.ISBN ?? "ISBN");
+        lblDescription.Text = _selectedBook?.Description ?? "Description";
     }
 }
