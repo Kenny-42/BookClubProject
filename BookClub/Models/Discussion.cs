@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.Contracts;
 
 namespace BookClub.Models;
 
@@ -32,4 +33,16 @@ public class Discussion
     }
 
     public Discussion() { }
+}
+
+public class DiscussionUpdateDTO
+{
+    [Required]
+    [StringLength(2048, ErrorMessage = "Comment cannot be longer than 2048 characters.")]
+    public string? Comment { get; set; } = string.Empty;
+    public DiscussionUpdateDTO(string comment)
+    {
+        Comment = comment;
+    }
+    public DiscussionUpdateDTO() { }
 }
