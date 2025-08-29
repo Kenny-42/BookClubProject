@@ -58,6 +58,7 @@ public partial class Login : Form
 
     private void btnCreateAccount_Click(object sender, EventArgs e)
     {
+        // Show the CreateAccount form
         CreateAccount createAccountForm = Program.AppServices.GetRequiredService<CreateAccount>();
         createAccountForm.Show();
         this.Hide();
@@ -65,6 +66,7 @@ public partial class Login : Form
 
     private void buttonResetPassword_Click(object sender, EventArgs e)
     {
+        // Show the ResetPassword form
         ResetPassword resetPasswordForm = Program.AppServices.GetRequiredService<ResetPassword>();
         resetPasswordForm.Show();
         this.Hide();
