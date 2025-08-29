@@ -87,14 +87,27 @@ public partial class BookList : Form
 
     private void btnEditBook_Click(object sender, EventArgs e)
     {
-        // TODO: Implement edit functionality
-        MessageBox.Show(_selectedBook?.Title ?? "No book selected");
+        // Navigate to EditBook form with the selected book
+        EditBook editBookForm = Program.AppServices.GetRequiredService<EditBook>();
+        editBookForm.Show();
+        this.Hide();
     }
 
     private void btnDeleteBook_Click(object sender, EventArgs e)
     {
         // TODO: Implement delete functionality
-        MessageBox.Show(_selectedBook?.Title ?? "No book selected");
+        var result = MessageBox.Show(
+            "Are you sure you want to delete this book?",
+            "Confirm Delete",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Warning
+        );
+
+        // If user confirmed, delete the book
+        if (result == DialogResult.Yes)
+        {
+            _bookRepo.Delete(_selectedBook!.Id);
+        }
     }
 
     private void btnReviews_Click(object sender, EventArgs e)
