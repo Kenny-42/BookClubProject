@@ -1,4 +1,7 @@
 ﻿using BookClub.Data;
+using BookClub.Models;
+using BookClub.Repositories;
+using BookClub.Resources;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -6,13 +9,18 @@ namespace BookClub.Forms;
 
 public partial class BookList : Form
 {
-    private AppDbContext _context;
-    public BookList(AppDbContext context)
+    private AccountsRepository _repo;
+    private BookRepository _bookRepo;
+    private UserContext _userContext;
+
+    public BookList(UserContext userContext, AccountsRepository repo, BookRepository bookRepo)
     {
         InitializeComponent();
-        _context = context;
+        _repo = repo;
+        _bookRepo = bookRepo;
+        _userContext = userContext;
         this.FormClosed += (s, args) => Application.Exit();
-        //PopulateBookList();
+        PopulateBookList();
     }
 
     private void btnLogout_Click(object sender, EventArgs e)
@@ -31,7 +39,8 @@ public partial class BookList : Form
 
     private void btnEditAccount_Click(object sender, EventArgs e)
     {
-        EditAccount editAccountForm = Program.AppServices.GetRequiredService<EditAccount>();
+        // Pass the current account from UserContext
+        EditAccount editAccountForm = new EditAccount(_userContext, _repo);
         editAccountForm.Show();
         this.Hide();
     }
@@ -40,22 +49,7 @@ public partial class BookList : Form
     {
         pnlBookList.Controls.Clear();
 
-        var books = new List<(int BookId, string Title, string Author)>();
-        string connectionString = "Server=localhost;Database=BookClub;Trusted_Connection=True;TrustServerCertificate=True;";
-        string query = "SELECT BookId, Title, Author FROM Books";
-
-        using (var conn = new SqlConnection(connectionString))
-        using (var cmd = new SqlCommand(query, conn))
-        {
-            conn.Open();
-            using (var reader = cmd.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    books.Add((reader.GetInt32(0), reader.GetString(1), reader.GetString(2)));
-                }
-            }
-        }
+        var books = _bookRepo.GetAll().ToList();
 
         if (books.Count == 0)
             return;
@@ -73,13 +67,16 @@ public partial class BookList : Form
             btn.Left = spacing;
             btn.Top = i * (buttonHeight + spacing);
             btn.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            btn.Tag = book.BookId;
+            btn.Tag = book;
             btn.UseCompatibleTextRendering = true;
 
             btn.Click += (s, e) =>
             {
-                int bookId = (int)((Button)s).Tag;
-                Reviews reviewsForm = new Reviews(_context, bookId);
+                var clickedBook = (Book)((Button)s).Tag;
+                var bookContext = Program.AppServices.GetRequiredService<BookContext>();
+                bookContext.CurrentBook = clickedBook;
+
+                Reviews reviewsForm = Program.AppServices.GetRequiredService<Reviews>();
                 reviewsForm.Show();
                 this.Hide();
             };

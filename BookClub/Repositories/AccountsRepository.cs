@@ -27,7 +27,7 @@ public class AccountsRepository
         if (account.Id != 0)
             throw new ArgumentException("Account ID must be 0 for new accounts. It will be auto-generated.", nameof(account.Id));
 
-        _context.accounts.Add(account);
+        _context.Accounts.Add(account);
         return _context.SaveChanges() > 0;
     }
 
@@ -40,12 +40,12 @@ public class AccountsRepository
         if ( predicate == null)
             throw new ArgumentNullException(nameof(predicate), "Predicate cannot be null");
 
-        return _context.accounts.FirstOrDefault(predicate);
+        return _context.Accounts.FirstOrDefault(predicate);
     }
 
     public IEnumerable<Account> GetAll()
     {
-        return _context.accounts.ToList();
+        return _context.Accounts.ToList();
     }
 
     /*
@@ -65,7 +65,7 @@ public class AccountsRepository
             return false;
         }
 
-        var account = _context.accounts.Find(id);
+        var account = _context.Accounts.Find(id);
         if (account == null) return false;
 
         account.FirstName = dto.FirstName ?? account.FirstName;
@@ -83,10 +83,10 @@ public class AccountsRepository
 
     public bool Delete(int id)
     {
-        var account = _context.accounts.Find(id);
+        var account = _context.Accounts.Find(id);
         if (account != null)
         {
-            _context.accounts.Remove(account);
+            _context.Accounts.Remove(account);
             _context.SaveChanges();
             return true;
         }

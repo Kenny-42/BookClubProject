@@ -49,7 +49,7 @@ public class BookRepository
         if (book.Id != 0)
             throw new ArgumentException("Book ID must be 0 for new books. It will be auto-generated.", nameof(book.Id));
 
-        _context.books.Add(book);
+        _context.Books.Add(book);
 
         return _context.SaveChanges() > 0;
     }
@@ -70,7 +70,7 @@ public class BookRepository
         if(predicate == null)
             throw new ArgumentNullException(nameof(predicate), "Predicate cannot be null");
 
-        return _context.books.FirstOrDefault(predicate);
+        return _context.Books.FirstOrDefault(predicate);
     }
 
     /// <summary>
@@ -81,7 +81,7 @@ public class BookRepository
     /// <returns>An <see cref="IEnumerable{T}"/> containing all books. The collection will be empty if no books are found.</returns>
     public IEnumerable<Book> GetAll()
     {
-        return _context.books.ToList();
+        return _context.Books.ToList();
     }
 
     /*
@@ -111,9 +111,10 @@ public class BookRepository
             var errors = string.Join("; ", validationResults.Select(r => r.ErrorMessage));
             MessageBox.Show($"BookUpdateDTO validation failed:\n{errors}");
         }
-
+      
         // Find the existing book by its ID
         var book = _context.books.Find(bookId);
+      
         if (book == null) return false;
 
         // Update only the properties that are not null in the DTO
@@ -138,10 +139,10 @@ public class BookRepository
     /// <returns><see langword="true"/> if the book was successfully deleted; otherwise, <see langword="false"/>.</returns>
     public bool Delete(int bookId)
     {
-        var book = _context.books.Find(bookId);
+        var book = _context.Books.Find(bookId);
         if (book != null)
         {
-            _context.books.Remove(book);
+            _context.Books.Remove(book);
             return _context.SaveChanges() > 0;
         }
         return false;
