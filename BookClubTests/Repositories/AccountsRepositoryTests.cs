@@ -69,7 +69,7 @@ namespace BookClub.Repositories.Tests
             _repo.Add(account);
 
             // Assert
-            var result = _context.accounts.FirstOrDefault(a => a.Username == "johndoe");
+            var result = _context.Accounts.FirstOrDefault(a => a.Username == "johndoe");
 
             Assert.IsNotNull(result);
             Assert.AreEqual("John", result.FirstName);
@@ -134,7 +134,7 @@ namespace BookClub.Repositories.Tests
             // Arrange
             var accounts = _testAccounts;
 
-            _context.accounts.AddRange(accounts);
+            _context.Accounts.AddRange(accounts);
             _context.SaveChanges();
 
             // Act
@@ -155,7 +155,7 @@ namespace BookClub.Repositories.Tests
             // Arrange
             var account = _testAccount;
 
-            _context.accounts.Add(account);
+            _context.Accounts.Add(account);
             _context.SaveChanges();
 
             // Act
@@ -167,7 +167,7 @@ namespace BookClub.Repositories.Tests
 
             _repo.Update(account.Id, dto);
 
-            var updated = _context.accounts.FirstOrDefault(a => a.Username == account.Username);
+            var updated = _context.Accounts.FirstOrDefault(a => a.Username == account.Username);
 
             // Assert
             Assert.IsNotNull(updated);
@@ -180,7 +180,7 @@ namespace BookClub.Repositories.Tests
             // Arrange
             var account = _testAccount;
 
-            _context.accounts.Add(account);
+            _context.Accounts.Add(account);
             _context.SaveChanges();
 
             // Act
