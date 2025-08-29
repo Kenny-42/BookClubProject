@@ -1,22 +1,28 @@
 ﻿using BookClub.Data;
+using BookClub.Models;
+using BookClub.Repositories;
+using BookClub.Resources;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BookClub.Forms;
 
 public partial class DiscussionBoard : Form
 {
-    private AppDbContext _context;
-    private int _bookId;
+    private readonly DiscussionsRepository _discussionsRepo;
+    private Book? _selectedBook;
 
-    public DiscussionBoard(AppDbContext context, int bookId)
+    public DiscussionBoard(DiscussionsRepository discussionsRepo)
     {
         InitializeComponent();
 
-        _bookId = bookId;
+        _discussionsRepo = discussionsRepo;
+
+        _selectedBook = Program.AppServices.GetRequiredService<BookContext>().CurrentBook;
 
         this.FormClosed += (s, args) => Application.Exit();
 
-        LoadBookInfo(_bookId);
+        LoadBookInfo();
+        PopulateDiscussionsPanel();
     }
 
     private void btnLogout_Click(object sender, EventArgs e)
@@ -40,33 +46,103 @@ public partial class DiscussionBoard : Form
         this.Hide();
     }
 
-    private void LoadBookInfo(int bookId)
+    private void LoadBookInfo()
     {
-        string connectionString = "Server=localhost;Database=BookClub;Trusted_Connection=True;TrustServerCertificate=True;";
-        string query = "SELECT Title, Author, ISBN, BookDescription FROM Books WHERE BookId = @BookId";
+        lblBookTitle.Text = _selectedBook?.Title ?? "Book Title";
+        lblAuthor.Text = "Author: " + (_selectedBook?.Author ?? "Author");
+        lblISBN.Text = "ISBN: " + (_selectedBook?.ISBN ?? "ISBN");
+        lblDescription.Text = _selectedBook?.Description ?? "Description";
+    }
 
-        using (var conn = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
-        using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(query, conn))
+    public void PopulateDiscussionsPanel()
+    {
+        // Clear previous controls
+        pnlDiscussionBoard.Controls.Clear();
+
+        var accountsRepo = Program.AppServices.GetRequiredService<AccountsRepository>();
+
+        // Fetch discussions for this book
+        var discussions = _discussionsRepo.GetAll()
+            .Where(d => d.BookId == _selectedBook.Id)
+            .OrderBy(d => d.PostedAt)
+            .ToList();
+
+        // UI layout settings
+        int y = 10;
+        int spacing = 6;
+        int groupBoxWidth = pnlDiscussionBoard.Width - 40;
+        int groupBoxPadding = 10;
+
+        foreach (var discussion in discussions)
         {
-            cmd.Parameters.AddWithValue("@BookId", bookId);
-            conn.Open();
-            using (var reader = cmd.ExecuteReader())
-            {
-                if (reader.Read())
-                {
-                    lblBookTitle.Text = reader["Title"].ToString();
-                    lblAuthor.Text = "Author: " + reader["Author"].ToString();
-                    lblISBN.Text = "ISBN: " + reader["ISBN"].ToString();
-                    lblDescription.Text = reader["BookDescription"].ToString();
-                }
-                else
-                {
-                    lblBookTitle.Text = "Book Title";
-                    lblAuthor.Text = "Author";
-                    lblISBN.Text = "ISBN";
-                    lblDescription.Text = "Description";
-                }
-            }
+            var account = accountsRepo.GetByKey(a => a.Id == discussion.AccountId);
+            string username = account?.Username ?? "Unknown";
+
+            // GroupBox for each comment
+            var groupBox = new GroupBox();
+            groupBox.Width = groupBoxWidth;
+            groupBox.Left = 10;
+            groupBox.Top = y;
+            groupBox.Text = $"{username}";
+            groupBox.Font = new Font("Segoe UI", 9, FontStyle.Bold);
+
+            // Label for the discussion comment
+            var lblComment = new Label();
+            lblComment.Text = discussion.Comment;
+            lblComment.Font = new Font("Segoe UI", 10);
+            lblComment.Left = groupBoxPadding;
+            lblComment.Top = 18;
+            lblComment.MaximumSize = new Size(groupBox.Width - 2 * groupBoxPadding, 0);
+            lblComment.AutoSize = true;
+            groupBox.Controls.Add(lblComment);
+
+            // Label for timestamp
+            var lblDate = new Label();
+            lblDate.Text = discussion.PostedAt.ToString("yyyy-MM-dd HH:mm");
+            lblDate.Font = new Font("Segoe UI", 8, FontStyle.Italic);
+            lblDate.ForeColor = Color.DimGray;
+            lblDate.Left = groupBoxPadding;
+            lblDate.Top = lblComment.Top + lblComment.Height + 2;
+            lblDate.Width = groupBox.Width - 2 * groupBoxPadding;
+            lblDate.Height = 16;
+            lblDate.AutoSize = false;
+            groupBox.Controls.Add(lblDate);
+
+            // Adjust height of group box after adding controls
+            int bottom = lblDate.Top + lblDate.Height;
+            groupBox.Height = bottom + groupBoxPadding;
+
+            // Add to panel
+            pnlDiscussionBoard.Controls.Add(groupBox);
+
+            y += groupBox.Height + spacing;
         }
+    }
+
+    private void btnSubmit_Click(object sender, EventArgs e)
+    {
+        if(string.IsNullOrWhiteSpace(txtDiscussionPost.Text))
+        {
+            MessageBox.Show("Please enter a comment before submitting.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+
+        var userContext = Program.AppServices.GetRequiredService<UserContext>();
+        
+        Discussion newDiscussion = new Discussion
+        {
+            BookId = _selectedBook.Id,
+            AccountId = userContext.CurrentAccount.Id,
+            Comment = txtDiscussionPost.Text.Trim(),
+            //PostedAt = DateTime.Now
+        };
+
+        _discussionsRepo.Add(newDiscussion);
+
+        // Clear input and refresh panel
+        txtDiscussionPost.Text = string.Empty;
+
+        pnlDiscussionBoard.Controls.Clear();
+        PopulateDiscussionsPanel();
     }
 }

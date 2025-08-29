@@ -35,7 +35,7 @@ partial class BookList
         btnEditAccount = new Button();
         btnDeleteBook = new Button();
         btnEditBook = new Button();
-        btnAddReview = new Button();
+        btnViewReviews = new Button();
         SuspendLayout();
         // 
         // btnLogout
@@ -114,24 +114,24 @@ partial class BookList
         btnEditBook.UseVisualStyleBackColor = true;
         btnEditBook.Click += btnEditBook_Click;
         // 
-        // btnAddReview
+        // btnViewReviews
         // 
-        btnAddReview.Enabled = false;
-        btnAddReview.Location = new Point(473, 288);
-        btnAddReview.Margin = new Padding(3, 2, 3, 2);
-        btnAddReview.Name = "btnAddReview";
-        btnAddReview.Size = new Size(110, 39);
-        btnAddReview.TabIndex = 5;
-        btnAddReview.Text = "Add Review";
-        btnAddReview.UseVisualStyleBackColor = true;
-        btnAddReview.Click += btnReviews_Click;
+        btnViewReviews.Enabled = false;
+        btnViewReviews.Location = new Point(473, 288);
+        btnViewReviews.Margin = new Padding(3, 2, 3, 2);
+        btnViewReviews.Name = "btnViewReviews";
+        btnViewReviews.Size = new Size(110, 39);
+        btnViewReviews.TabIndex = 5;
+        btnViewReviews.Text = "View Reviews";
+        btnViewReviews.UseVisualStyleBackColor = true;
+        btnViewReviews.Click += btnReviews_Click;
         // 
         // BookList
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(700, 338);
-        Controls.Add(btnAddReview);
+        Controls.Add(btnViewReviews);
         Controls.Add(btnDeleteBook);
         Controls.Add(btnEditBook);
         Controls.Add(btnEditAccount);
@@ -155,5 +155,5 @@ partial class BookList
     private Button btnEditAccount;
     private Button btnDeleteBook;
     private Button btnEditBook;
-    private Button btnAddReview;
+    private Button btnViewReviews;
 }

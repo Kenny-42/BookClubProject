@@ -30,6 +30,11 @@ public class AppDbContext : DbContext
     /// </summary>
     public DbSet<Review> Reviews { get; set; }
 
+    /// <summary>
+    /// A collection representing the discussions in the database.
+    /// </summary>
+    public DbSet<Discussion> Discussions { get; set; }
+
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
     /// <summary>
