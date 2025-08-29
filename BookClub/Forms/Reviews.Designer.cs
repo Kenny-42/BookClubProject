@@ -223,6 +223,7 @@ partial class Reviews
         btnEditReview.TabIndex = 21;
         btnEditReview.Text = "Edit";
         btnEditReview.UseVisualStyleBackColor = true;
+        btnEditReview.Click += new System.EventHandler(this.btnEditReview_Click);
         // 
         // btnDeleteReview
         // 
@@ -232,6 +233,7 @@ partial class Reviews
         btnDeleteReview.TabIndex = 22;
         btnDeleteReview.Text = "Delete";
         btnDeleteReview.UseVisualStyleBackColor = true;
+        btnDeleteReview.Click += btnDeleteReview_Click;
         // 
         // Reviews
         // 
