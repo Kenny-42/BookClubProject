@@ -76,7 +76,7 @@ namespace BookClub.Repositories.Tests
             // Arrange
             Book book = _testBook;
 
-            _context.books.Add(book);
+            _context.Books.Add(book);
             _context.SaveChanges();
 
             // Act
@@ -117,7 +117,7 @@ namespace BookClub.Repositories.Tests
             // Arrange
             var book = _testBook;
 
-            _context.books.Add(book);
+            _context.Books.Add(book);
 
             // Act
             var updateDto = new BookUpdateDTO()
@@ -127,7 +127,7 @@ namespace BookClub.Repositories.Tests
 
             _repo.Update(book.Id, updateDto);
 
-            var updatedBook = _context.books.FirstOrDefault(b => b.Id == book.Id);
+            var updatedBook = _context.Books.FirstOrDefault(b => b.Id == book.Id);
 
             // Assert
             Assert.IsNotNull(updatedBook);
@@ -143,7 +143,7 @@ namespace BookClub.Repositories.Tests
             // Arrange
             var book = _testBook;
 
-            _context.books.Add(book);
+            _context.Books.Add(book);
             _context.SaveChanges();
 
             // Act
