@@ -120,5 +120,30 @@ namespace BookClub.Forms
             reviewsForm.Show();
             this.Hide();
         }
+
+        private void btnDeleteReview_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show(
+                "Are you sure you want to delete this review? This action cannot be undone.",
+                "Confirm Delete",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+            if (result == DialogResult.Yes)
+            {
+                bool deleted = _reviewsRepo.Delete(_currentReview.Id);
+                if (deleted)
+                {
+                    MessageBox.Show("Review deleted successfully.", "Review Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    var reviewsForm = Program.AppServices.GetRequiredService<Reviews>();
+                    reviewsForm.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("Failed to delete review. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 }
