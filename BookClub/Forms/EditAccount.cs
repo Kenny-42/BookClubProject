@@ -60,6 +60,7 @@ namespace BookClub.Forms
         private bool ValidateInputs(string firstName, string lastName, string email, string username, string password, out string error)
         {
             error = string.Empty;
+
             // Trim all inputs
             firstName = firstName.Trim();
             lastName = lastName.Trim();
