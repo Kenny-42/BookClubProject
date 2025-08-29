@@ -66,30 +66,34 @@ dotnet build
 ---
 
 ## Upcoming Features
-- [ ] Full CRUD (Create, Read, Update, Delete) functionalities
+- [x] Full CRUD (Create, Read, Update, Delete) functionalities
 - [x] Database initialization using Entity Framework Core Migrations
    - [x] Accounts Table
    - [x] Books Table
-   - [ ] Reviews Table (To be added)
-   - [ ] Discussions Table (To be added)
-   - [ ] Mock data generation
+   - [x] Reviews Table
+   - [x] Discussions Table
+   - [x] Mock data generation
       - [x] Accounts
       - [x] Books
-      - [ ] Reviews
-      - [ ] Discussions
-- [ ] Account System
-   - [ ] Login
-   - [ ] Registration
-   - [ ] Modify account details
-   - [ ] Account deletion
-- [ ] Book System
-   - [ ] Registering books
-   - [ ] Book Reviews?
-- [ ] Review System
-   - [ ] Create reviews
-   - [ ] Edit reviews
-   - [ ] Delete reviews
-- [ ] Discussion (To be added)
+      - [x] Reviews
+      - [x] Discussions
+- [x] Account System
+   - [x] Login
+   - [x] Registration
+   - [x] Modify account details
+   - [x] Account deletion
+- [x] Book System
+   - [x] Add books
+   - [x] Edit books
+   - [x] Delete books
+- [x] Review System
+   - [x] Create reviews
+   - [x] Edit reviews
+   - [x] Delete reviews
+- [x] Discussion System
+    - [x] Create post
+    - [x] Edit post
+    - [x] Delete post
 
 ## Technologies/Frameworks Used
 ### Backend
