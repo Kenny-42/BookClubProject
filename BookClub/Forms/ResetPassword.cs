@@ -69,6 +69,7 @@ public partial class ResetPassword : Form
             errors.Add("Passwords don't match.");
         }
 
+        // Retrieve account by username and email
         var account = _repo.GetByKey(a => a.Username == username && a.Email == email);
 
         // Ensure new password is different from old password
@@ -91,9 +92,7 @@ public partial class ResetPassword : Form
             return;
         }
 
-        account!.Password = newPassword;
-
-        // Update the account's password in the repository
+        // Use DTO for partial update
         AccountUpdateDTO dto = new()
         {
             Password = newPassword
