@@ -5,17 +5,22 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BookClub.Forms;
 
+/// <summary>
+/// Represents a form for creating a new user account.
+/// </summary>
+/// <remarks>This form allows users to input their personal details, such as first name, last name, email,
+/// username, and password,  to create a new account. It validates the input fields, ensures the username is unique, and
+/// stores the account in the database. Upon successful account creation, the form transitions to the next application
+/// screen.</remarks>
 public partial class CreateAccount : Form
 {
     private AppDbContext _context;
     private AccountsRepository _repo;
-    private UserContext _userContext;
-    public CreateAccount(AppDbContext context, AccountsRepository repo, UserContext userContext)
+    public CreateAccount(AccountsRepository repo)
     {
         InitializeComponent();
-        _context = context;
+
         _repo = repo;
-        _userContext = userContext;
         this.FormClosed += (s, args) => Application.Exit();
     }
 
@@ -26,6 +31,16 @@ public partial class CreateAccount : Form
         this.Hide();
     }
 
+    /// <summary>
+    /// Validates the user inputs for creating a new account.
+    /// </summary>
+    /// <param name="firstName"></param>
+    /// <param name="lastName"></param>
+    /// <param name="email"></param>
+    /// <param name="username"></param>
+    /// <param name="password"></param>
+    /// <param name="error"></param>
+    /// <returns></returns>
     private bool ValidateInputs(string firstName, string lastName, string email, string username, string password, out string error)
     {
         error = string.Empty;
@@ -136,6 +151,7 @@ public partial class CreateAccount : Form
         if (success)
         {
             // Set current user context
+            UserContext _userContext = Program.AppServices.GetRequiredService<UserContext>();
             _userContext.CurrentAccount = newAccount;
 
             // Show BookList form
