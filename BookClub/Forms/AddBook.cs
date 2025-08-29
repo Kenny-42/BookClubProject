@@ -4,8 +4,17 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BookClub.Forms;
 
+/// <summary>
+/// Represents a form for adding a new book to the repository.
+/// </summary>
+/// <remarks>This form provides functionality for entering book details, validating the input, and adding the book
+/// to the repository. It also includes navigation options to return to the book list or log out of the
+/// application.</remarks>
 public partial class AddBook : Form
 {
+    /// <summary>
+    /// Provides access to book data operations.
+    /// </summary>
     private BookRepository _repo;
     public AddBook(BookRepository repo)
     {
