@@ -45,6 +45,8 @@ partial class Reviews
         pcbStar4 = new PictureBox();
         pcbStar1 = new PictureBox();
         pcbStar5 = new PictureBox();
+        btnEditReview = new Button();
+        btnDeleteReview = new Button();
         ((System.ComponentModel.ISupportInitialize)pcbBookThumbnail).BeginInit();
         ((System.ComponentModel.ISupportInitialize)pcbStar3).BeginInit();
         ((System.ComponentModel.ISupportInitialize)pcbStar2).BeginInit();
@@ -213,11 +215,31 @@ partial class Reviews
         pcbStar5.TabIndex = 18;
         pcbStar5.TabStop = false;
         // 
+        // btnEditReview
+        // 
+        btnEditReview.Location = new Point(264, 409);
+        btnEditReview.Name = "btnEditReview";
+        btnEditReview.Size = new Size(129, 29);
+        btnEditReview.TabIndex = 21;
+        btnEditReview.Text = "Edit";
+        btnEditReview.UseVisualStyleBackColor = true;
+        // 
+        // btnDeleteReview
+        // 
+        btnDeleteReview.Location = new Point(534, 409);
+        btnDeleteReview.Name = "btnDeleteReview";
+        btnDeleteReview.Size = new Size(129, 29);
+        btnDeleteReview.TabIndex = 22;
+        btnDeleteReview.Text = "Delete";
+        btnDeleteReview.UseVisualStyleBackColor = true;
+        // 
         // Reviews
         // 
         AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(800, 450);
+        Controls.Add(btnDeleteReview);
+        Controls.Add(btnEditReview);
         Controls.Add(pcbStar5);
         Controls.Add(pcbStar1);
         Controls.Add(pcbStar4);
@@ -266,4 +288,6 @@ partial class Reviews
     private PictureBox pcbStar4;
     private PictureBox pcbStar1;
     private PictureBox pcbStar5;
+    private Button btnEditReview;
+    private Button btnDeleteReview;
 }
